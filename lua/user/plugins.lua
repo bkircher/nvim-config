@@ -42,7 +42,7 @@ packer.init {
 -- Install plugins here
 return packer.startup(function(use)
   use "wbthomason/packer.nvim" -- Have packer manage itself
-  use 'martinsione/darkplus.nvim' -- Darkplus color theme
+  use "LunarVim/darkplus.nvim" -- Darkplus color theme
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()
