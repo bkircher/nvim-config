@@ -43,6 +43,10 @@ packer.init {
 return packer.startup(function(use)
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use "LunarVim/darkplus.nvim" -- Darkplus color theme
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    run = ":TSUpdate",
+  }
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()
