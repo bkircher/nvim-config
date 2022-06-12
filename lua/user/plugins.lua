@@ -49,7 +49,6 @@ return packer.startup(function(use)
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    commit = "9fdd6765fc05632c2f3af1ad825dc4e9cc0b041f", -- Last known version to work with nvim v0.6.1
   }
   use "kyazdani42/nvim-web-devicons" -- VimDevIcons (https://github.com/ryanoasis/vim-devicons) in Lua
 
