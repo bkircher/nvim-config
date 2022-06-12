@@ -6,7 +6,7 @@ end
 configs.setup {
   ensure_installed = "all", -- One of "all", "maintained" (parsers with maintainers), or a list of parsers
   sync_install = false, -- Install parsers synchronously
-  ignore_install = { "" }, -- List of parsers to ignore
+  ignore_install = { "phpdoc" }, -- List of parsers to ignore
   highlight = {
     enable = true, -- Enable highlighting by default
     disable = { "" }, -- List of parsers with highlighting disabled
