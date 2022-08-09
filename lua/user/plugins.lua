@@ -43,7 +43,7 @@ packer.init {
 return packer.startup(function(use)
   use "wbthomason/packer.nvim" -- Have packer manage itself
   use {
-    "LunarVim/darkplus.nvim", -- Darkplus color theme
+    "bkircher/darkplus.nvim", -- Darkplus color theme
     commit = "listchars-handling",
   }
   use {
