@@ -9,3 +9,9 @@ Aaanyway, if you wonder where you can learn about all this, there is a video ser
 If you know what you are doing, clone this repository like
 
     $ git clone git@github.com:bkircher/nvim-config.git ~/.config/nvim
+
+## TODO
+
+- [ ] make spelling work with your dictionary somehow
+- [ ] make updating less scary (get compilation errors when updating treesitter plugins)
+
