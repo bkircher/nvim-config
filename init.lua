@@ -1,5 +1,5 @@
 require "user.options"
 -- require "user.plugins"
--- require "user.colorscheme"
+require "user.colorscheme"
 -- require "user.rpmspec"
 -- require "user.treesitter"
