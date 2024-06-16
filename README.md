@@ -57,3 +57,8 @@ Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
 ## TODO
 
 - [ ] Make spelling work with my dictionary
+
+## Links
+
+- https://neovim.io/doc/
+- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter
