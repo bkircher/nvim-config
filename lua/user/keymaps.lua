@@ -10,7 +10,10 @@ map('n', '<C-l>', '<C-w>l', opts)
 -- Convenience
 map('n', '<leader>s', ':update<CR>', { desc = 'Save buffer (if changed)', silent = true })
 map('n', '<leader>h', ':nohlsearch<CR>', { desc = 'Clear search highlight', silent = true })
-map('n', '<leader>l', ':set nolist<CR>', { desc = 'Hide whitespace indicators', silent = true })
+map('n', '<leader>l', function()
+  vim.wo.list = not vim.wo.list
+  vim.notify('list: ' .. (vim.wo.list and 'on' or 'off'))
+end, { desc = 'Toggle whitespace indicators', silent = true })
 
 -- Spelling toggle
 map('n', '<leader>ss', function()
