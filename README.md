@@ -99,12 +99,12 @@ them immediately.
 - [x] Make spelling work with my dictionary
 - [ ] Add minimal built-in LSP startup that only activates when servers are
       present (no plugins, no downloads)
-- [ ] Enable Treesitter folding
+- [x] Enable Treesitter folding
       (`foldmethod=expr, foldexpr=nvim_treesitter#foldexpr()`) with a high
       default foldlevel so nothing collapses unexpectedly
 
 ## Links
 
-- https://neovim.io/doc/
-- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter
+- <https://neovim.io/doc/>
+- <https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter>
 
