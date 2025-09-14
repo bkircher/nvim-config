@@ -54,6 +54,18 @@ directory and pull the latest changes
 
 Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
 
+## Defaults and Keymaps
+
+- Leader key is set to space (`<Space>`). Local leader is `,`.
+- Treesitter is configured with highlighting, indentation, and incremental
+  selection (`gnn` to init, `grn`/`grm` to inc/dec).
+- Quality-of-life keymaps:
+  - `<C-h/j/k/l>` to move between splits
+  - `<leader>h` to clear search highlight
+  - `<leader>w` to save the buffer (if modified)
+- Deno formatting: `<leader>f` formats the current buffer via `deno fmt -` if
+  `deno` is installed and the filetype/extension is supported.
+
 ## TODO
 
 - [ ] Make spelling work with my dictionary

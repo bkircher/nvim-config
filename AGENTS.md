@@ -1,7 +1,4 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with
-code in this repository.
+# AGENTS.md
 
 ## Overview
 
@@ -10,6 +7,8 @@ execute untrusted code from the internet. The configuration uses git submodules
 for plugin management and manual package management via Neovim's built-in
 `:help packages` system.
 
+Code assumes Neovim 11.0 and later is used.
+
 ## Architecture
 
 - `init.lua` - Main entry point that requires all user modules
@@ -17,6 +16,8 @@ for plugin management and manual package management via Neovim's built-in
   - `options.lua` - Basic Neovim options and settings
   - `colorscheme.lua` - Color scheme configuration (uses new default dark theme)
   - `plugins.lua` - nvim-treesitter configuration with syntax highlighting
+  - `keymaps.lua` - Core keymaps (leader, window nav, helpers)
+  - `autocmds.lua` - Small quality-of-life autocommands
   - `deno.lua` - Deno formatter integration (`<leader>f` keybinding)
   - `rpmspec.lua` - RPM spec file changelog helper configuration
 - `plugins/start/` - Plugin directory managed via git submodules
@@ -51,8 +52,9 @@ git submodule
 ## Key Features
 
 - **Treesitter Integration**: Configured for C, Lua, Vimdoc, Python, JavaScript,
-  and Markdown
-- **Deno Formatting**: `<leader>f` formats current file using `deno fmt`
+  Markdown, and Elixir
+- **Deno Formatting**: `<leader>f` formats current file using `deno fmt -`
+  (stdin)
 - **RPM Spec Support**: Changelog format helper for RPM spec files
 - **Minimal Dependencies**: No plugin manager, uses Neovim's native package
   system
@@ -73,3 +75,4 @@ The configuration expects a symlink:
 ```
 
 This allows Neovim to discover plugins in the `plugins/start/` directory.
+
