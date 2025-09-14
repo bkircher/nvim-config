@@ -69,8 +69,15 @@ Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
 ## TODO
 
 - [ ] Make spelling work with my dictionary
+- [ ] Add minimal built-in LSP startup that only activates when servers are
+      present (no plugins, no downloads)
+- [ ] Enable Treesitter folding
+      (`foldmethod=expr, foldexpr=nvim_treesitter#foldexpr()`) with a high
+      default foldlevel so nothing collapses unexpectedly
+- [ ] Add a tiny statusline using the built-in statusline (no plugins)
 
 ## Links
 
 - https://neovim.io/doc/
 - https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter
+
