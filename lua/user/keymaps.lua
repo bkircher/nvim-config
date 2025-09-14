@@ -12,3 +12,8 @@ map('n', '<leader>s', ':update<CR>', { desc = 'Save buffer (if changed)', silent
 map('n', '<leader>h', ':nohlsearch<CR>', { desc = 'Clear search highlight', silent = true })
 map('n', '<leader>l', ':set nolist<CR>', { desc = 'Hide whitespace indicators', silent = true })
 
+-- Spelling toggle
+map('n', '<leader>ss', function()
+  vim.wo.spell = not vim.wo.spell
+  vim.notify('spell: ' .. (vim.wo.spell and 'on' or 'off'))
+end, { desc = 'Toggle spell' })

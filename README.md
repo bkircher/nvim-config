@@ -66,15 +66,42 @@ Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
 - Deno formatting: `<leader>f` formats the current buffer via `deno fmt -` if
   `deno` is installed and the filetype/extension is supported.
 
+## Spelling
+
+This config uses a personal wordlist located in
+
+    ~/.config/spelling/en.utf-8.add
+
+- Neovim options point `spellfile` to that path and set `spelllang` to `en_us`
+  and `de_de`.
+- Spell is auto-enabled for `markdown`, `gitcommit`, and `text`. Toggle with
+  `<leader>ss` in any buffer.
+- Add words from inside Neovim with `zg` (appends to `en.utf-8.add`).
+
+### Recompile after dictionary changes
+
+Recompilation is optional but recommended after large edits to the dictionary
+file.
+
+From inside Vim:
+
+    :mkspell! ~/.config/spelling/en.utf-8.add
+
+From the shell:
+
+    $ nvim -n -u NONE -c "silent mkspell! ~/.config/spelling/en.utf-8.add" -c 'qa'
+
+Note: adding words with `zg` writes directly to `en.utf-8.add`, and Neovim uses
+them immediately.
+
 ## TODO
 
-- [ ] Make spelling work with my dictionary
+- [x] Make spelling work with my dictionary
 - [ ] Add minimal built-in LSP startup that only activates when servers are
       present (no plugins, no downloads)
 - [ ] Enable Treesitter folding
       (`foldmethod=expr, foldexpr=nvim_treesitter#foldexpr()`) with a high
       default foldlevel so nothing collapses unexpectedly
-- [ ] Add a tiny statusline using the built-in statusline (no plugins)
 
 ## Links
 
