@@ -17,3 +17,15 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.opt_local.spell = true
   end,
 })
+
+-- Enable Treesitter highlighting and indent for selected languages
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = {
+    'c', 'lua', 'vimdoc', 'python', 'javascript', 'markdown',
+    'elixir', 'heex', 'eex', 'eelixir',
+  },
+  callback = function()
+    pcall(vim.treesitter.start)
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
