@@ -23,6 +23,13 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+-- Configure blinking cursor shapes across modes
+vim.opt.guicursor = {
+  "n-v-c-sm:block-Cursor/lCursor-blinkwait175-blinkoff150-blinkon175",
+  "i-ci-ve:ver25-Cursor/lCursor-blinkwait700-blinkoff400-blinkon250",
+  "r-cr-o:hor20-Cursor/lCursor-blinkwait700-blinkoff400-blinkon250",
+}
+
 -- Don't auto-continue comments on new lines
 vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 
