@@ -42,7 +42,8 @@ manage with git. For example, with `git submodule` you can list all installed
 plugins and the referenced versions:
 
     $ git submodule
-     71a8e8b4b6ebab39765615334d4241a18090a651 plugins/start/nvim-treesitter (v0.9.2-561-g71a8e8b4)
+     b10ed9a8b37d6b7448908be98ff8f58f550adc48 plugins/start/everforest (v0.3.0-114-gb10ed9a)
+     7f8dd2e48bc47227d8138a5b5b1fb5a6d6e42237 plugins/start/nvim-treesitter (v0.9.3-576-g7f8dd2e4)
 
 ### Updating plugins
 
@@ -57,6 +58,7 @@ Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
 ## Defaults and Keymaps
 
 - Leader key is set to space (`<Space>`). Local leader is `,`.
+- Colorscheme is Everforest (dark/hard) with transparent background.
 - Treesitter is configured with highlighting, indentation, and incremental
   selection (`gnn` to init, `grn`/`grm` to inc/dec).
 - Quality-of-life keymaps:
@@ -96,15 +98,10 @@ them immediately.
 
 ## TODO
 
-- [x] Make spelling work with my dictionary
 - [ ] Add minimal built-in LSP startup that only activates when servers are
       present (no plugins, no downloads)
-- [x] Enable Treesitter folding
-      (`foldmethod=expr, foldexpr=nvim_treesitter#foldexpr()`) with a high
-      default foldlevel so nothing collapses unexpectedly
 
 ## Links
 
 - <https://neovim.io/doc/>
 - <https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter>
-

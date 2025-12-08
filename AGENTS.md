@@ -14,7 +14,8 @@ Assumes Neovim 0.11.0+.
 - `init.lua` - Main entry point that requires all user modules
 - `lua/user/` - Contains all configuration modules:
   - `options.lua` - Basic Neovim options and settings
-  - `colorscheme.lua` - Color scheme configuration (uses new default dark theme)
+  - `colorscheme.lua` - Color scheme configuration (Everforest Dark Hard with
+    fallback to defaults)
   - `plugins.lua` - nvim-treesitter configuration with syntax highlighting
   - `keymaps.lua` - Core keymaps (leader, window nav, helpers)
   - `autocmds.lua` - Small quality-of-life autocommands
@@ -22,7 +23,8 @@ Assumes Neovim 0.11.0+.
   - `rpmspec.lua` - RPM spec file changelog helper configuration
   - `journal.lua` - Simple daily journal helper (`<leader>j`, `:JournalEntry`)
 - `plugins/start/` - Plugin directory managed via git submodules
-  - Contains nvim-treesitter as the primary plugin for syntax highlighting
+  - Contains nvim-treesitter for syntax highlighting and everforest for the
+    colorscheme
 
 ## Plugin Management
 
@@ -69,6 +71,7 @@ git submodule
 
 - **Treesitter Integration**: Configured for C, Lua, Vimdoc, Python, JavaScript,
   Markdown, and Elixir
+- **Everforest Theme**: Dark/Hard variant with transparent background
 - **Deno Formatting**: `<leader>f` formats current file using `deno fmt -`
   (stdin)
 - **RPM Spec Support**: Changelog format helper for RPM spec files
@@ -145,8 +148,7 @@ Verify inside Neovim:
 
 ## Notes
 
-- Colorscheme uses Neovim’s default scheme with dark background and transparent
-  background highlights to play well with terminal themes.
+- Colorscheme uses Everforest (dark/hard) with transparent background
+  highlights; falls back to Neovim defaults if unavailable.
 - `vim.loader` (0.9+) and `vim.system` (0.10+) are used when available with
   fallbacks for older versions.
-

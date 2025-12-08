@@ -1,3 +1,6 @@
 [submodule "plugins/start/nvim-treesitter"]
 	path = plugins/start/nvim-treesitter
 	url = git@github.com:nvim-treesitter/nvim-treesitter.git
+[submodule "plugins/start/everforest"]
+	path = plugins/start/everforest
+	url = https://github.com/sainnhe/everforest.git
