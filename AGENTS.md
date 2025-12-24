@@ -16,9 +16,11 @@ Assumes Neovim 0.11.0+.
   - `options.lua` - Basic Neovim options and settings
   - `colorscheme.lua` - Color scheme configuration (Everforest Dark Hard with
     fallback to defaults)
-  - `plugins.lua` - nvim-treesitter configuration with syntax highlighting
+  - `plugins.lua` - nvim-treesitter plugin bootstrap (parsers/indent support;
+    highlighting configured in `autocmds.lua`)
   - `keymaps.lua` - Core keymaps (leader, window nav, helpers)
-  - `autocmds.lua` - Small quality-of-life autocommands
+  - `autocmds.lua` - Small quality-of-life autocommands (including Treesitter
+    highlight/indent/fold)
   - `deno.lua` - Deno formatter integration (`<leader>f` keybinding)
   - `rpmspec.lua` - RPM spec file changelog helper configuration
   - `journal.lua` - Simple daily journal helper (`<leader>j`, `:JournalEntry`)
@@ -70,7 +72,7 @@ git submodule
 ## Key Features
 
 - **Treesitter Integration**: Configured for C, Lua, Vimdoc, Python, JavaScript,
-  Markdown, and Elixir
+  Markdown, Elixir, HEEx, EEx, and EElixir
 - **Everforest Theme**: Dark/Hard variant with transparent background
 - **Deno Formatting**: `<leader>f` formats current file using `deno fmt -`
   (stdin)
