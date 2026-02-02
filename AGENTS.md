@@ -24,6 +24,7 @@ Assumes Neovim 0.11.0+.
   - `deno.lua` - Deno formatter integration (`<leader>f` keybinding)
   - `rpmspec.lua` - RPM spec file changelog helper configuration
   - `journal.lua` - Simple daily journal helper (`<leader>j`, `:JournalEntry`)
+  - `commitmsg.lua` - Generate commit message generator via gemini (`:CommitMsg`)
 - `plugins/start/` - Plugin directory managed via git submodules
   - Contains nvim-treesitter for syntax highlighting and everforest for the
     colorscheme
@@ -94,6 +95,7 @@ git submodule
 - Toggle spell: `<leader>ss`
 - Deno format: `<leader>f` or `:DenoFmt`
 - Journal: `<leader>j` or `:JournalEntry`
+- Generate commit message: `:CommitMsg`
 
 ## Development Workflow
 
