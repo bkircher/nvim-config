@@ -31,8 +31,8 @@ vim.opt.guicursor = {
 }
 
 -- Don't auto-continue comments on new lines
-vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
+vim.opt.formatoptions:remove({ "c", "r", "o" })
 
 -- Spelling configuration; user dict lives in ~/.config/spelling
-vim.opt.spelllang = { 'en_us', 'de_de' }
-vim.opt.spellfile = vim.fn.expand('~/.config/spelling/en.utf-8.add')
+vim.opt.spelllang = { "en_us", "de_de" }
+vim.opt.spellfile = vim.fn.expand("~/.config/spelling/en.utf-8.add")

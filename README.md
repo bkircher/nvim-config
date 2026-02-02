@@ -67,6 +67,8 @@ Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
   - `<leader>w` to save the buffer (if modified)
 - Deno formatting: `<leader>f` formats the current buffer via `deno fmt -` if
   `deno` is installed and the filetype/extension is supported.
+- Lua formatting: run `stylua init.lua lua/` from the repo root to automatically
+  format Lua code.
 
 ## Spelling
 

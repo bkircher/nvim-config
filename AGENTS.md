@@ -105,6 +105,7 @@ git submodule
 4. Use git submodules for any new plugin installations
 5. To enable Treesitter features for more languages, add filetypes to the
    `FileType` autocmd patterns in `lua/user/autocmds.lua`
+6. Format Lua code by running `stylua init.lua lua/` from the repo root
 
 ### Agent Conventions (please follow)
 
