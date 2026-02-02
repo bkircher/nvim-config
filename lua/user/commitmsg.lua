@@ -23,13 +23,13 @@ local function generate_commit_msg()
 
   local cmd = {
     'gemini',
-    '-p', 'write a concise git commit message for these staged changes. '
-       .. 'output only the commit message, nothing else.',
+    '-p', 'Write a concise Git commit message for these staged changes. '
+       .. 'Output only the commit message, nothing else.',
     '-s',
     '-o', 'json',
   }
 
-  vim.system(cmd, { stdin = diff, text = true }, function(res)
+  vim.system(cmd, { stdin = diff, text = true, env = { NODE_OPTIONS = '--no-deprecation' } }, function(res)
     vim.schedule(function()
       if res.code ~= 0 or not res.stdout or res.stdout == '' then
         local err = res.stderr and vim.trim(res.stderr) or ''
