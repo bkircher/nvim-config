@@ -1,10 +1,10 @@
 # nvim-config
 
-A very minimal Neovim configuration I use for work. It does not rely on any
-plugin managers and does not randomly execute untrusted code from the internet.
+A very minimal Neovim configuration I use for work. It does not rely on plugin
+managers and does not execute untrusted code from the internet.
 
-Anyway, if you're wondering where you can learn about all this, there are plenty
-of videos and channels on YouTube.
+If you're wondering where to learn more about this, there are plenty of videos
+and channels on YouTube.
 
 Clone this repository:
 
@@ -12,7 +12,7 @@ Clone this repository:
 
 ## Plugins
 
-You can easily manage plugins manually in Neovim, see `:help packages`. Here I
+You can easily manage plugins manually in Neovim; see `:help packages`. Here I
 use git submodules to install, update, and track plugins inside the Neovim
 config directory (`~/.config/nvim`) and use a symlink to the runtime path:
 
@@ -20,7 +20,7 @@ config directory (`~/.config/nvim`) and use a symlink to the runtime path:
 
 ### Installing new plugins
 
-Create the necessary directories and symlinks first. Create the plugin
+Create the necessary directories and symlink first. Create the plugin
 directory:
 
     $ mkdir -p ~/.local/share/nvim/site/pack/
@@ -31,7 +31,7 @@ Create a symlink into your Neovim config directory:
     $ ln -s ~/.config/nvim/plugins plugins
 
 Then clone the plugin of your choice into your `~/.config/nvim/plugins/start`
-directory. For example, you would install nvim-treesitter as follows
+directory. For example, you would install nvim-treesitter as follows:
 
     $ cd ~/.config/nvim
     $ git submodule add git@github.com:nvim-treesitter/nvim-treesitter.git \
@@ -47,17 +47,17 @@ plugins and the referenced versions:
 
 ### Updating plugins
 
-To update a plugin, say nvim-treesitter, you would navigate to the plugin
-directory and pull the latest changes
+To update a plugin, such as nvim-treesitter, navigate to the plugin directory
+and pull the latest changes:
 
     $ cd ~/.config/nvim/plugins/start/nvim-treesitter
     $ git pull
 
-Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
+Then reopen Neovim and run `:TSUpdate` again to update parsers if needed.
 
 ## Defaults and Keymaps
 
-- Leader key is set to space (`<Space>`). Local leader is `,`.
+- Leader key is `\`. Local leader is `,`.
 - Colorscheme is Everforest (dark/hard) with transparent background.
 - Treesitter is configured with highlighting, indentation, and incremental
   selection (`gnn` to init, `grn`/`grm` to inc/dec).
@@ -72,11 +72,11 @@ Then, reopen Neovim and run `TSUpdate` again to update parsers if needed.
 
 ## Spelling
 
-This config uses a personal wordlist located in
+This config uses a personal word list located at:
 
     ~/.config/spelling/en.utf-8.add
 
-- Neovim options point `spellfile` to that path and set `spelllang` to `en_us`
+- Neovim options set `spellfile` to that path and set `spelllang` to `en_us`
   and `de_de`.
 - Spell is auto-enabled for `markdown`, `gitcommit`, and `text`. Toggle with
   `<leader>ss` in any buffer.
@@ -87,7 +87,7 @@ This config uses a personal wordlist located in
 Recompilation is optional but recommended after large edits to the dictionary
 file.
 
-From inside Vim:
+From inside Neovim:
 
     :mkspell! ~/.config/spelling/en.utf-8.add
 

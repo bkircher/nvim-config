@@ -158,5 +158,6 @@ Verify inside Neovim:
 
 - Colorscheme uses Everforest (dark/hard) with transparent background
   highlights; falls back to Neovim defaults if unavailable.
-- `vim.loader` (0.9+) and `vim.system` (0.10+) are used when available with
-  fallbacks for older versions.
+- `vim.loader` is enabled when available; this config targets Neovim 0.11+.
+- `deno.lua` includes a `vim.system` fallback (`systemlist`), while
+  `commitmsg.lua` and `editeng.lua` require `vim.system`.
