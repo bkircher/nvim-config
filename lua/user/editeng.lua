@@ -48,45 +48,41 @@ local function edit_selection(opts)
     "json",
   }
 
-  vim.system(
-    cmd,
-    {
-      stdin = selected_text,
-      text = true,
-      env = { NODE_OPTIONS = "--no-deprecation" },
-    },
-    function(res)
-      vim.schedule(function()
-        if res.code ~= 0 or not res.stdout or res.stdout == "" then
-          local err = res.stderr and vim.trim(res.stderr) or ""
-          local msg = "gemini failed"
-          if err ~= "" then
-            msg = msg .. ": " .. err
-          end
-          vim.notify(msg, vim.log.levels.ERROR)
-          return
+  vim.system(cmd, {
+    stdin = selected_text,
+    text = true,
+    env = { NODE_OPTIONS = "--no-deprecation" },
+  }, function(res)
+    vim.schedule(function()
+      if res.code ~= 0 or not res.stdout or res.stdout == "" then
+        local err = res.stderr and vim.trim(res.stderr) or ""
+        local msg = "gemini failed"
+        if err ~= "" then
+          msg = msg .. ": " .. err
         end
-        local ok, parsed = pcall(vim.json.decode, res.stdout)
-        if not ok or not parsed or not parsed.response then
-          vim.notify("gemini: unexpected output", vim.log.levels.ERROR)
-          return
-        end
-        local text = vim.trim(parsed.response)
-        if text == "" then
-          vim.notify("gemini returned empty response", vim.log.levels.WARN)
-          return
-        end
-        local replacement = vim.split(text, "\n", { plain = true })
-        vim.api.nvim_buf_set_lines(
-          bufnr,
-          start_line - 1,
-          end_line,
-          false,
-          replacement
-        )
-      end)
-    end
-  )
+        vim.notify(msg, vim.log.levels.ERROR)
+        return
+      end
+      local ok, parsed = pcall(vim.json.decode, res.stdout)
+      if not ok or not parsed or not parsed.response then
+        vim.notify("gemini: unexpected output", vim.log.levels.ERROR)
+        return
+      end
+      local text = vim.trim(parsed.response)
+      if text == "" then
+        vim.notify("gemini returned empty response", vim.log.levels.WARN)
+        return
+      end
+      local replacement = vim.split(text, "\n", { plain = true })
+      vim.api.nvim_buf_set_lines(
+        bufnr,
+        start_line - 1,
+        end_line,
+        false,
+        replacement
+      )
+    end)
+  end)
 end
 
 vim.api.nvim_create_user_command(
