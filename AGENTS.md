@@ -93,6 +93,7 @@ git submodule
 - Save-if-changed: `<leader>s`
 - Clear search highlight: `<leader>h`
 - Toggle whitespace indicators: `<leader>l`
+- macOS Dictionary: `<leader>d` (word under cursor)
 - Toggle spell: `<leader>ss`
 - Deno format: `<leader>f` or `:DenoFmt`
 - Journal: `<leader>j` or `:JournalEntry`

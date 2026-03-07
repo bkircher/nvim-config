@@ -25,6 +25,12 @@ map("n", "<leader>l", function()
   vim.notify("list: " .. (vim.wo.list and "on" or "off"))
 end, { desc = "Toggle whitespace indicators", silent = true })
 
+-- macOS Dictionary lookup
+map("n", "<leader>d", function()
+  local word = vim.fn.expand("<cword>")
+  vim.fn.system({ "open", "dict://" .. word })
+end, { desc = "Open word in macOS Dictionary" })
+
 -- Spelling toggle
 map("n", "<leader>ss", function()
   vim.wo.spell = not vim.wo.spell
