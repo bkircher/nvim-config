@@ -1,7 +1,5 @@
--- Enable faster Lua module loading (Neovim 0.9+)
-if vim.loader and vim.loader.enable then
-  pcall(vim.loader.enable)
-end
+-- Enable faster Lua module loading
+vim.loader.enable()
 
 -- Set leaders early so mappings use the right leader
 vim.g.mapleader = "\\"
