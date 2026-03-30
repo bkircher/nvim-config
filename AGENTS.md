@@ -7,7 +7,7 @@ execute untrusted code from the internet. The configuration uses git submodules
 for plugin management and manual package management via Neovim's built-in
 `packages` system (see `:help packages`).
 
-Assumes Neovim 0.11.0+.
+Assumes Neovim 0.12.0+.
 
 ## Architecture
 
@@ -160,6 +160,6 @@ Verify inside Neovim:
 
 - Colorscheme uses Everforest (dark/hard) with transparent background
   highlights; falls back to Neovim defaults if unavailable.
-- `vim.loader` is enabled when available; this config targets Neovim 0.11+.
+- `vim.loader` is enabled when available; this config targets Neovim 0.12+.
 - `deno.lua`, `commitmsg.lua`, and `editeng.lua` require `vim.system`.
 
