@@ -24,8 +24,10 @@ Assumes Neovim 0.11.0+.
   - `deno.lua` - Deno formatter integration (`<leader>f` keybinding)
   - `rpmspec.lua` - RPM spec file changelog helper configuration
   - `journal.lua` - Simple daily journal helper (`<leader>j`, `:JournalEntry`)
-  - `commitmsg.lua` - Generate commit message generator via gemini (`:CommitMsg`)
-  - `editeng.lua` - English text editor via gemini (`:EditEng` on a visual selection)
+  - `commitmsg.lua` - Generate commit message generator via gemini
+    (`:CommitMsg`)
+  - `editeng.lua` - English text editor via gemini (`:EditEng` on a visual
+    selection)
 - `plugins/start/` - Plugin directory managed via git submodules
   - Contains nvim-treesitter for syntax highlighting and everforest for the
     colorscheme
@@ -159,5 +161,5 @@ Verify inside Neovim:
 - Colorscheme uses Everforest (dark/hard) with transparent background
   highlights; falls back to Neovim defaults if unavailable.
 - `vim.loader` is enabled when available; this config targets Neovim 0.11+.
-- `deno.lua` includes a `vim.system` fallback (`systemlist`), while
-  `commitmsg.lua` and `editeng.lua` require `vim.system`.
+- `deno.lua`, `commitmsg.lua`, and `editeng.lua` require `vim.system`.
+

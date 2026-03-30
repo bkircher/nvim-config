@@ -42,21 +42,11 @@ local function deno_fmt()
   local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
   local input = table.concat(lines, "\n")
 
-  -- Prefer vim.system (Neovim 0.10+), fallback to systemlist
-  local output, code
-  if vim.system then
-    local res = vim
-      .system({ "deno", "fmt", ("--ext=%s"):format(ext), "-" }, { stdin = input })
-      :wait()
-    output = res.stdout and res.stdout or ""
-    code = res.code or 1
-  else
-    output = table.concat(
-      vim.fn.systemlist({ "deno", "fmt", ("--ext=" .. ext), "-" }, input),
-      "\n"
-    )
-    code = vim.v.shell_error
-  end
+  local res = vim
+    .system({ "deno", "fmt", ("--ext=%s"):format(ext), "-" }, { stdin = input })
+    :wait()
+  local output = res.stdout and res.stdout or ""
+  local code = res.code or 1
 
   if code ~= 0 or not output or output == "" then
     vim.notify("Deno fmt failed", vim.log.levels.ERROR)
