@@ -4,3 +4,9 @@
 [submodule "plugins/start/everforest"]
 	path = plugins/start/everforest
 	url = https://github.com/sainnhe/everforest.git
+[submodule "plugins/start/plenary.nvim"]
+	path = plugins/start/plenary.nvim
+	url = git@github.com:nvim-lua/plenary.nvim.git
+[submodule "plugins/start/telescope.nvim"]
+	path = plugins/start/telescope.nvim
+	url = git@github.com:nvim-telescope/telescope.nvim.git

@@ -28,9 +28,11 @@ Assumes Neovim 0.12.0+.
     (`:CommitMsg`)
   - `editeng.lua` - English text editor via gemini (`:EditEng` on a visual
     selection)
+  - `telescope.lua` - Telescope fuzzy finder keymaps (find files, live grep,
+    buffers, help tags)
 - `plugins/start/` - Plugin directory managed via git submodules
-  - Contains nvim-treesitter for syntax highlighting and everforest for the
-    colorscheme
+  - Contains nvim-treesitter for syntax highlighting, everforest for the
+    colorscheme, telescope.nvim for fuzzy finding (with plenary.nvim dependency)
 
 ## Plugin Management
 
@@ -85,6 +87,8 @@ git submodule
   system
 - **Journal Helper**: `<leader>j` or `:JournalEntry` opens
   `~/journal/YYYY/MM/DD.md` and appends a timestamp heading at EOF
+- **Telescope**: Fuzzy finder for files, grep, buffers, and help tags (requires
+  `ripgrep` for live grep)
 - **Folding/Indent**: Treesitter-backed folding and indent for selected
   filetypes
 
@@ -101,6 +105,10 @@ git submodule
 - Journal: `<leader>j` or `:JournalEntry`
 - Generate commit message: `:CommitMsg`
 - Edit English text: `:'<,'>EditEng` (visual selection)
+- Telescope find files: `<leader>ff`
+- Telescope live grep: `<leader>fg`
+- Telescope buffers: `<leader>fb`
+- Telescope help tags: `<leader>fh`
 
 ## Development Workflow
 
@@ -162,4 +170,4 @@ Verify inside Neovim:
   highlights; falls back to Neovim defaults if unavailable.
 - `vim.loader` is enabled when available; this config targets Neovim 0.12+.
 - `deno.lua`, `commitmsg.lua`, and `editeng.lua` require `vim.system`.
-
+- Telescope live grep (`<leader>fg`) requires `ripgrep` on `PATH`.

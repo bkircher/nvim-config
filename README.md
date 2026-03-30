@@ -20,8 +20,7 @@ config directory (`~/.config/nvim`) and use a symlink to the runtime path:
 
 ### Installing new plugins
 
-Create the necessary directories and symlink first. Create the plugin
-directory:
+Create the necessary directories and symlink first. Create the plugin directory:
 
     $ mkdir -p ~/.local/share/nvim/site/pack/
     $ cd ~/.local/share/nvim/site/pack
@@ -76,8 +75,8 @@ This config uses a personal word list located at:
 
     ~/.config/spelling/en.utf-8.add
 
-- Neovim options set `spellfile` to that path and set `spelllang` to `en_us`
-  and `de_de`.
+- Neovim options set `spellfile` to that path and set `spelllang` to `en_us` and
+  `de_de`.
 - Spell is auto-enabled for `markdown`, `gitcommit`, and `text`. Toggle with
   `<leader>ss` in any buffer.
 - Add words from inside Neovim with `zg` (appends to `en.utf-8.add`).
