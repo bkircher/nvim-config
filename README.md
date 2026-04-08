@@ -1,10 +1,10 @@
 # nvim-config
 
-A very minimal Neovim configuration I use for work. It does not rely on plugin
-managers and does not execute untrusted code from the internet.
+This is a minimal Neovim configuration I use for work. It does not rely on
+plugin managers and does not execute untrusted code from the internet.
 
-If you're wondering where to learn more about this, there are plenty of videos
-and channels on YouTube.
+If you want to learn more about this approach, there are plenty of videos and
+channels on YouTube.
 
 Clone this repository:
 
@@ -12,15 +12,16 @@ Clone this repository:
 
 ## Plugins
 
-You can easily manage plugins manually in Neovim; see `:help packages`. Here I
-use git submodules to install, update, and track plugins inside the Neovim
-config directory (`~/.config/nvim`) and use a symlink to the runtime path:
+You can manage plugins manually in Neovim; see `:help packages`. In this setup,
+I use Git submodules to install, update, and track plugins inside the Neovim
+config directory (`~/.config/nvim`), and a symlink exposes them on the runtime
+path:
 
     ~/.local/share/nvim/site/pack/plugins → ~/.config/nvim/plugins
 
 ### Installing new plugins
 
-Create the necessary directories and symlink first. Create the plugin directory:
+Create the necessary directories and symlink first:
 
     $ mkdir -p ~/.local/share/nvim/site/pack/
     $ cd ~/.local/share/nvim/site/pack
@@ -36,9 +37,9 @@ directory. For example, you would install nvim-treesitter as follows:
     $ git submodule add git@github.com:nvim-treesitter/nvim-treesitter.git \
         plugins/start/nvim-treesitter
 
-This adds a git submodule to your source tree which you can introspect and
-manage with git. For example, with `git submodule` you can list all installed
-plugins and the referenced versions:
+This adds a Git submodule to your source tree, which you can inspect and manage
+with Git. For example, `git submodule` lists all installed plugins and their
+pinned revisions:
 
     $ git submodule
      b10ed9a8b37d6b7448908be98ff8f58f550adc48 plugins/start/everforest (v0.3.0-114-gb10ed9a)
@@ -56,15 +57,16 @@ Then reopen Neovim and run `:TSUpdate` again to update parsers if needed.
 
 ## Defaults and Keymaps
 
-- Leader key is `\`. Local leader is `,`.
+- The leader key is `\`; the local leader is `,`.
 - Colorscheme is Everforest (dark/hard) with transparent background.
-- Treesitter is configured with highlighting, indentation, and incremental
-  selection (`gnn` to init, `grn`/`grm` to inc/dec).
+- Treesitter is used for highlighting, indentation, and folding in selected
+  filetypes.
 - Quality-of-life keymaps:
   - `<C-h/j/k/l>` to move between splits
   - `<leader>h` to clear search highlight
   - `<leader>w` to save the buffer (if modified)
 - Telescope fuzzy finder:
+  - `<leader>fb` to list buffers
   - `<leader>ff` to find files
   - `<leader>fg` to live grep (requires `ripgrep`)
   - `<leader>fh` to search help tags
@@ -81,8 +83,8 @@ This config uses a personal word list located at:
 
 - Neovim options set `spellfile` to that path and set `spelllang` to `en_us` and
   `de_de`.
-- Spell is auto-enabled for `markdown`, `gitcommit`, and `text`. Toggle with
-  `<leader>ss` in any buffer.
+- Spell checking is enabled automatically for `markdown`, `gitcommit`, and
+  `text`. Toggle it with `<leader>ss` in any buffer.
 - Add words from inside Neovim with `zg` (appends to `en.utf-8.add`).
 
 ### Recompile after dictionary changes
@@ -104,9 +106,14 @@ them immediately.
 ## TODO
 
 - [ ] Add minimal built-in LSP startup that only activates when servers are
-      present (no plugins, no downloads)
+      present (no plugins, no downloads).
+- [ ] Switch from manual submodules to built-in `vim.pack` when it becomes
+      stable.
 
 ## Links
 
-- <https://neovim.io/doc/>
-- <https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter>
+- Neovim docs: <https://neovim.io/doc/>
+- Treesitter plugin docs:
+  <https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter>
+- A vim.pack guide:
+  <https://echasnovski.com/blog/2026-03-13-a-guide-to-vim-pack.html>
