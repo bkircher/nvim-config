@@ -103,6 +103,54 @@ From the shell:
 Note: adding words with `zg` writes directly to `en.utf-8.add`, and Neovim uses
 them immediately.
 
+## About `vim.pack`
+
+Neovim 0.12.0 adds a built-in plugin manager. This config currently uses Git
+submodules under `plugins/start/`: four plugins are managed as submodules and
+loaded through Neovim's native package system (`pack/*/start/*`) via a symlink
+[^1].
+
+### What `vim.pack` is
+
+`vim.pack` is a built-in plugin manager added in Neovim 0.12 (`:help vim.pack`):
+
+- It is still marked experimental.
+- It uses Git under the hood. It clones repositories into
+  `site/pack/core/opt/` (the data standard path, not the config directory).
+- It provides `vim.pack.add()`, `.update()`, `.del()`, and `.get()`.
+- It generates a lockfile (`nvim-pack-lock.json`) in the config directory to
+  pin revisions.
+- `vim.pack.add()` auto-installs missing plugins on first run, then calls
+  `:packadd` to load them.
+- Updates happen interactively through `vim.pack.update()` with a confirmation
+  buffer.
+
+### Should we switch?
+
+I would not switch yet. Here's why:
+
+1. `vim.pack` is experimental. The help explicitly warns that it may change,
+   while the submodule approach is stable and well understood.
+2. It follows a different philosophy. `vim.pack` manages plugins in the data
+   directory (`~/.local/share/nvim/site/pack/core/opt/`), not in the config
+   directory under `~/.config/nvim/plugins/start/`. With `vim.pack`, plugin
+   sources live outside the config and are tracked through a lockfile.
+3. The current approach already works well. Submodules give us pinned
+   revisions, reproducible clones (`--recurse-submodules`), and no dependency
+   on a Neovim API that may still change.
+4. There is no major upside for this use case. `vim.pack` mainly helps people
+   who do not want to manage submodules manually, and that workflow is already
+   in place here.
+
+If we were starting from scratch today on 0.12+, `vim.pack` would be a
+reasonable choice. It removes the need for the symlink and manual submodule
+commands. But migrating a working setup to an experimental API does not buy
+much.
+
+[^1]: The `pcall(require, "nvim-treesitter")` in `lua/user/plugins.lua` just
+    ensures the module is available. The plugin itself is already on the
+    runtime path from the `start/` directory.
+
 ## TODO
 
 - [ ] Add minimal built-in LSP startup that only activates when servers are
