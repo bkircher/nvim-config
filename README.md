@@ -64,7 +64,7 @@ Then reopen Neovim and run `:TSUpdate` again to update parsers if needed.
 - Quality-of-life keymaps:
   - `<C-h/j/k/l>` to move between splits
   - `<leader>h` to clear search highlight
-  - `<leader>w` to save the buffer (if modified)
+  - `<leader>s` to save the buffer if it has changed
 - Telescope fuzzy finder:
   - `<leader>fb` to list buffers
   - `<leader>ff` to find files
