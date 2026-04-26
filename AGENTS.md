@@ -24,7 +24,7 @@ Assumes Neovim 0.12.0+.
   - `deno.lua` - Deno formatter integration (`<leader>f` keybinding)
   - `rpmspec.lua` - RPM spec file changelog helper configuration
   - `journal.lua` - Simple daily journal helper (`<leader>j`, `:JournalEntry`)
-  - `commitmsg.lua` - Generate commit message generator via gemini
+  - `commitmsg.lua` - Generate commit message generator via opencode
     (`:CommitMsg`)
   - `editeng.lua` - English text editor via gemini (`:EditEng` on a visual
     selection)
