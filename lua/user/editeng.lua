@@ -1,5 +1,5 @@
 -- English text editor
--- Sends a visual selection to gemini with an English editing prompt and
+-- Sends a visual selection to opencode with an English editing prompt and
 -- replaces the selection with the corrected text.
 
 local system_prompt = [[You are an English text editor.
@@ -15,13 +15,13 @@ Always apply these rules when identifying and suggesting corrections for English
 
 Return only the corrected text, no explanations or commentary.]]
 
-local function gemini_supported()
-  return vim.fn.executable("gemini") == 1
+local function opencode_supported()
+  return vim.fn.executable("opencode") == 1
 end
 
 local function edit_selection(opts)
-  if not gemini_supported() then
-    vim.notify("gemini not found in PATH", vim.log.levels.WARN)
+  if not opencode_supported() then
+    vim.notify("opencode not found in PATH", vim.log.levels.WARN)
     return
   end
 
@@ -37,40 +37,29 @@ local function edit_selection(opts)
     return
   end
 
-  vim.notify("Editing with gemini…")
+  vim.notify("Editing with opencode…")
 
+  local prompt = system_prompt .. "\n\nText:\n" .. selected_text
   local cmd = {
-    "gemini",
-    "-p",
-    system_prompt,
-    "-s",
-    "-o",
-    "json",
+    "opencode",
+    "run",
+    prompt,
   }
 
-  vim.system(cmd, {
-    stdin = selected_text,
-    text = true,
-    env = { NODE_OPTIONS = "--no-deprecation" },
-  }, function(res)
+  vim.system(cmd, { text = true }, function(res)
     vim.schedule(function()
       if res.code ~= 0 or not res.stdout or res.stdout == "" then
         local err = res.stderr and vim.trim(res.stderr) or ""
-        local msg = "gemini failed"
+        local msg = "opencode failed"
         if err ~= "" then
           msg = msg .. ": " .. err
         end
         vim.notify(msg, vim.log.levels.ERROR)
         return
       end
-      local ok, parsed = pcall(vim.json.decode, res.stdout)
-      if not ok or not parsed or not parsed.response then
-        vim.notify("gemini: unexpected output", vim.log.levels.ERROR)
-        return
-      end
-      local text = vim.trim(parsed.response)
+      local text = vim.trim(res.stdout)
       if text == "" then
-        vim.notify("gemini returned empty response", vim.log.levels.WARN)
+        vim.notify("opencode returned empty response", vim.log.levels.WARN)
         return
       end
       local replacement = vim.split(text, "\n", { plain = true })
@@ -88,5 +77,5 @@ end
 vim.api.nvim_create_user_command(
   "EditEng",
   edit_selection,
-  { range = true, desc = "Edit selected text with gemini English editor" }
+  { range = true, desc = "Edit selected text with opencode English editor" }
 )

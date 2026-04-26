@@ -26,7 +26,7 @@ Assumes Neovim 0.12.0+.
   - `journal.lua` - Simple daily journal helper (`<leader>j`, `:JournalEntry`)
   - `commitmsg.lua` - Generate commit message generator via opencode
     (`:CommitMsg`)
-  - `editeng.lua` - English text editor via gemini (`:EditEng` on a visual
+  - `editeng.lua` - English text editor via opencode (`:EditEng` on a visual
     selection)
   - `telescope.lua` - Telescope fuzzy finder keymaps (find files, live grep,
     buffers, help tags)
