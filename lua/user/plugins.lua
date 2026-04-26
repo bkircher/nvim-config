@@ -4,5 +4,5 @@
 pcall(require, "nvim-treesitter")
 
 -- Builtin opt plugins (Neovim 0.12+)
-vim.cmd.packadd('nvim.undotree')
-vim.cmd.packadd('nvim.difftool')
+vim.cmd.packadd("nvim.undotree")
+vim.cmd.packadd("nvim.difftool")
