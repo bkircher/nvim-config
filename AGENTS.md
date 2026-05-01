@@ -24,10 +24,7 @@ Assumes Neovim 0.12.0+.
   - `deno.lua` - Deno formatter integration (`<leader>f` keybinding)
   - `rpmspec.lua` - RPM spec file changelog helper configuration
   - `journal.lua` - Simple daily journal helper (`<leader>j`, `:JournalEntry`)
-  - `commitmsg.lua` - Generate commit message generator via opencode
-    (`:CommitMsg`)
-  - `editeng.lua` - English text editor via opencode (`:EditEng` on a visual
-    selection)
+  - `commitmsg.lua` - Generate git commit messages via pi (`:CommitMsg`)
   - `telescope.lua` - Telescope fuzzy finder keymaps (find files, live grep,
     buffers, help tags)
 - `plugins/start/` - Plugin directory managed via git submodules
@@ -104,7 +101,6 @@ git submodule
 - Deno format: `<leader>f` or `:DenoFmt`
 - Journal: `<leader>j` or `:JournalEntry`
 - Generate commit message: `:CommitMsg`
-- Edit English text: `:'<,'>EditEng` (visual selection)
 - Telescope find files: `<leader>ff`
 - Telescope live grep: `<leader>fg`
 - Telescope buffers: `<leader>fb`
@@ -169,5 +165,5 @@ Verify inside Neovim:
 - Colorscheme uses Everforest (dark/hard) with transparent background
   highlights; falls back to Neovim defaults if unavailable.
 - `vim.loader` is enabled when available; this config targets Neovim 0.12+.
-- `deno.lua`, `commitmsg.lua`, and `editeng.lua` require `vim.system`.
+- `deno.lua` and `commitmsg.lua` require `vim.system`.
 - Telescope live grep (`<leader>fg`) requires `ripgrep` on `PATH`.
