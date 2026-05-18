@@ -1,3 +1,10 @@
+-- Filetype detection
+vim.filetype.add({
+  extension = {
+    sb = "scheme",
+  },
+})
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function()
@@ -27,6 +34,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "python",
     "javascript",
     "markdown",
+    "scheme",
     "elixir",
     "heex",
     "eex",
