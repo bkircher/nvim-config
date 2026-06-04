@@ -38,12 +38,14 @@ directory. For example, you would install nvim-treesitter as follows:
         plugins/start/nvim-treesitter
 
 This adds a Git submodule to your source tree, which you can inspect and manage
-with Git. For example, `git submodule` lists all installed plugins and their
-pinned revisions:
+with Git. For example, `git submodule` lists installed plugins and their pinned
+revisions. Example output:
 
     $ git submodule
-     b10ed9a8b37d6b7448908be98ff8f58f550adc48 plugins/start/everforest (v0.3.0-114-gb10ed9a)
-     7f8dd2e48bc47227d8138a5b5b1fb5a6d6e42237 plugins/start/nvim-treesitter (v0.9.3-576-g7f8dd2e4)
+     b03a03148c8b34c24c96960b93da9c8883d11f54 plugins/start/everforest (v0.3.0-116-gb03a031)
+     4916d6592ede8c07973490d9322f187e07dfefac plugins/start/nvim-treesitter (v0.9.3-804-g4916d659)
+     b9fd5226c2f76c951fc8ed5923d85e4de065e509 plugins/start/plenary.nvim (v0.1.4-38-gb9fd522)
+     cfb85dcf7f822b79224e9e6aef9e8c794211b20b plugins/start/telescope.nvim (nvim-0.5.1-665-gcfb85dc)
 
 ### Updating plugins
 
@@ -53,25 +55,31 @@ and pull the latest changes:
     $ cd ~/.config/nvim/plugins/start/nvim-treesitter
     $ git pull
 
-Then reopen Neovim and run `:TSUpdate` again to update parsers if needed.
+Then reopen Neovim and run `:TSUpdate` to update parsers if needed.
 
-## Defaults and Keymaps
+## Defaults and keymaps
 
 - The leader key is `\`; the local leader is `,`.
-- Colorscheme is Everforest (dark/hard) with transparent background.
-- Treesitter is used for highlighting, indentation, and folding in selected
-  filetypes.
+- The color scheme is Everforest (dark/hard) with a transparent background.
+- Tree-sitter is used for highlighting, indentation, and folding in selected
+  file types.
 - Quality-of-life keymaps:
   - `<C-h/j/k/l>` to move between splits
-  - `<leader>h` to clear search highlight
+  - `<leader>h` to clear search highlighting
   - `<leader>s` to save the buffer if it has changed
+  - `<leader>l` to toggle whitespace indicators
+  - `<leader>d` to open the current word in macOS Dictionary
 - Telescope fuzzy finder:
   - `<leader>fb` to list buffers
   - `<leader>ff` to find files
   - `<leader>fg` to live grep (requires `ripgrep`)
   - `<leader>fh` to search help tags
-- Deno formatting: `<leader>f` formats the current buffer via `deno fmt -` if
-  `deno` is installed and the filetype/extension is supported.
+- Deno formatting: `<leader>f` formats the current buffer with `deno fmt` if
+  `deno` is installed and the file type or extension is supported.
+- Journal helper: `<leader>j` and `:JournalEntry` open today's journal file
+  under `~/journal/YYYY/MM/DD.md` and append a time heading.
+- Commit messages: `:CommitMsg` generates a commit message from staged changes
+  with `pi` (requires `pi` and `seatbelt`).
 - Lua formatting: run `stylua init.lua lua/` from the repo root to automatically
   format Lua code.
 
@@ -115,17 +123,17 @@ loaded through Neovim's native package system (`pack/*/start/*`) via a symlink
 `vim.pack` is a built-in plugin manager added in Neovim 0.12 (`:help vim.pack`):
 
 - It is still marked experimental.
-- It uses Git under the hood. It clones repositories into
-  `site/pack/core/opt/` (the data standard path, not the config directory).
+- It uses Git under the hood. It clones repositories into `site/pack/core/opt/`
+  (the standard data path, not the config directory).
 - It provides `vim.pack.add()`, `.update()`, `.del()`, and `.get()`.
-- It generates a lockfile (`nvim-pack-lock.json`) in the config directory to
-  pin revisions.
+- It generates a lockfile (`nvim-pack-lock.json`) in the config directory to pin
+  revisions.
 - `vim.pack.add()` auto-installs missing plugins on first run, then calls
   `:packadd` to load them.
 - Updates happen interactively through `vim.pack.update()` with a confirmation
   buffer.
 
-### Should we switch?
+### Should I switch?
 
 I would not switch yet. Here's why:
 
@@ -135,21 +143,20 @@ I would not switch yet. Here's why:
    directory (`~/.local/share/nvim/site/pack/core/opt/`), not in the config
    directory under `~/.config/nvim/plugins/start/`. With `vim.pack`, plugin
    sources live outside the config and are tracked through a lockfile.
-3. The current approach already works well. Submodules give us pinned
-   revisions, reproducible clones (`--recurse-submodules`), and no dependency
-   on a Neovim API that may still change.
-4. There is no major upside for this use case. `vim.pack` mainly helps people
-   who do not want to manage submodules manually, and that workflow is already
-   in place here.
+3. The current approach already works well. Submodules provide pinned revisions,
+   reproducible clones (`--recurse-submodules`), and no dependency on a Neovim
+   API that may still change.
+4. It does not address a current pain point. `vim.pack` mainly helps people who
+   do not want to manage submodules manually, and that workflow is already in
+   place here.
 
-If we were starting from scratch today on 0.12+, `vim.pack` would be a
-reasonable choice. It removes the need for the symlink and manual submodule
-commands. But migrating a working setup to an experimental API does not buy
-much.
+If I were starting from scratch today on 0.12+, `vim.pack` would be a reasonable
+choice. It removes the need for the symlink and manual submodule commands.
+However, migrating a working setup to an experimental API offers little benefit.
 
 [^1]: The `pcall(require, "nvim-treesitter")` in `lua/user/plugins.lua` just
-    ensures the module is available. The plugin itself is already on the
-    runtime path from the `start/` directory.
+    ensures the module is available. The plugin itself is already on the runtime
+    path from the `start/` directory.
 
 ## TODO
 
@@ -160,8 +167,10 @@ much.
 
 ## Links
 
+- Neovim home: <https://neovim.io/>
 - Neovim docs: <https://neovim.io/doc/>
-- Treesitter plugin docs:
+- Neovimcraft: <https://neovimcraft.com/>
+- `nvim-treesitter` plugin docs:
   <https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#nvim-treesitter>
-- A vim.pack guide:
+- A `vim.pack` guide:
   <https://echasnovski.com/blog/2026-03-13-a-guide-to-vim-pack.html>
