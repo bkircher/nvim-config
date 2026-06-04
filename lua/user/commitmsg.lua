@@ -5,9 +5,18 @@ local function pi_supported()
   return vim.fn.executable("pi") == 1
 end
 
+local function seatbelt_supported()
+  return vim.fn.executable("seatbelt") == 1
+end
+
 local function generate_commit_msg()
   if not pi_supported() then
     vim.notify("pi not found in PATH", vim.log.levels.WARN)
+    return
+  end
+
+  if not seatbelt_supported() then
+    vim.notify("seatbelt not found in PATH", vim.log.levels.WARN)
     return
   end
 
@@ -25,6 +34,8 @@ local function generate_commit_msg()
     .. diff
 
   local cmd = {
+    "seatbelt",
+    "run",
     "pi",
     "--print",
     "--no-tools",
