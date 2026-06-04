@@ -43,13 +43,13 @@ local function generate_commit_msg()
     "--no-context-files",
     "--system-prompt",
     "You are a Git commit message generator. Output only the commit message, nothing else. Rules:\n\n"
-.. "1. Separate subject from body with a blank line\n"
-.. "2. Limit the subject line to 50 characters\n"
-.. "3. Capitalize the subject line\n"
-.. "4. Do not end the subject line with a period\n"
-.. "5. Use the imperative mood in the subject line\n"
-.. "6. Wrap the body at 72 characters\n"
-.. "7. Use the body to explain what and why vs. how",
+      .. "1. Separate subject from body with a blank line\n"
+      .. "2. Limit the subject line to 50 characters\n"
+      .. "3. Capitalize the subject line\n"
+      .. "4. Do not end the subject line with a period\n"
+      .. "5. Use the imperative mood in the subject line\n"
+      .. "6. Wrap the body at 72 characters\n"
+      .. "7. Use the body to explain what and why vs. how",
   }
 
   vim.system(cmd, { text = true, stdin = prompt }, function(res)
