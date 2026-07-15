@@ -23,6 +23,15 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   command = "checktime",
 })
 
+-- Don't auto-continue comments on new lines after ftplugins are applied
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  desc = "Disable automatic comment continuation",
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+  end,
+})
+
 -- Enable spellchecking for text files
 vim.api.nvim_create_autocmd("FileType", {
   group = group,

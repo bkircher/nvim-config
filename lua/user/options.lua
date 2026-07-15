@@ -26,9 +26,6 @@ vim.opt.guicursor = {
   "r-cr-o:hor20-Cursor/lCursor-blinkwait700-blinkoff400-blinkon250",
 }
 
--- Don't auto-continue comments on new lines
-vim.opt.formatoptions:remove({ "c", "r", "o" })
-
 -- Spelling configuration; user dict lives in ~/.config/spelling
 vim.opt.spelllang = { "en_us", "de_de" }
 vim.opt.spellfile = vim.fn.expand("~/.config/spelling/en.utf-8.add")
