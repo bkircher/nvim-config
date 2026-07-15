@@ -57,6 +57,21 @@ and pull the latest changes:
 
 Then reopen Neovim and run `:TSUpdate` to update parsers if needed.
 
+### Tree-sitter parsers
+
+Cloning this configuration does not install its language parsers. The
+`nvim-treesitter` installer requires `tar`, `curl`, Tree-sitter CLI 0.26.1 or
+later, and a C compiler. Open Neovim and install all parsers configured in
+`lua/user/autocmds.lua` with:
+
+    :TSInstall c lua vimdoc python javascript markdown scheme elixir heex eex
+
+The `eex` parser is also used for the `eelixir` file type. The command installs
+the pinned parsers and their matching queries; it is a no-op for parsers that
+are already installed. Tree-sitter indentation and folding are enabled only
+when the parser starts and the relevant query is available, so filetype
+indentation remains in use otherwise.
+
 ## Defaults and keymaps
 
 - The leader key is `\`; the local leader is `,`.

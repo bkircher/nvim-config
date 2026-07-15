@@ -25,7 +25,12 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Enable Treesitter highlighting and indent for selected languages
+local function has_treesitter_query(lang, query)
+  local ok, result = pcall(vim.treesitter.query.get, lang, query)
+  return ok and result ~= nil
+end
+
+-- Enable Treesitter features for selected languages when they are available.
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {
     "c",
@@ -40,12 +45,22 @@ vim.api.nvim_create_autocmd("FileType", {
     "eex",
     "eelixir",
   },
-  callback = function()
-    pcall(vim.treesitter.start)
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    -- Treesitter-based folding
-    vim.wo.foldmethod = "expr"
-    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    vim.wo.foldlevel = 99
+  callback = function(args)
+    local lang = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+    if not lang or not pcall(vim.treesitter.start, args.buf, lang) then
+      return
+    end
+
+    -- Preserve the filetype's indentation when no Treesitter query exists.
+    if has_treesitter_query(lang, "indents") then
+      vim.bo[args.buf].indentexpr =
+        "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
+
+    if has_treesitter_query(lang, "folds") then
+      vim.wo.foldmethod = "expr"
+      vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+      vim.wo.foldlevel = 99
+    end
   end,
 })
