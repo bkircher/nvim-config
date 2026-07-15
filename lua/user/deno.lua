@@ -65,13 +65,17 @@ local function deno_fmt()
   local output = res.stdout or ""
   local code = res.code or 1
 
-  if code ~= 0 or output == "" then
+  if code ~= 0 then
     local stderr = res.stderr and vim.trim(res.stderr) or ""
     local message = "Deno fmt failed"
     if stderr ~= "" then
       message = message .. ": " .. stderr
     end
     vim.notify(message, vim.log.levels.ERROR)
+    return
+  end
+
+  if output == "" then
     return
   end
 
