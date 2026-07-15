@@ -76,7 +76,14 @@ local function generate_commit_msg()
         return
       end
       local lines = vim.split(text, "\n", { plain = true })
-      vim.api.nvim_buf_set_lines(bufnr, cursor[1], cursor[1], false, lines)
+      vim.api.nvim_buf_set_text(
+        bufnr,
+        cursor[1] - 1,
+        cursor[2],
+        cursor[1] - 1,
+        cursor[2],
+        lines
+      )
     end)
   end)
 end
