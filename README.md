@@ -8,7 +8,7 @@ channels on YouTube.
 
 Clone this repository:
 
-    git clone git@github.com:bkircher/nvim-config.git ~/.config/nvim
+    git clone --recurse-submodules git@github.com:bkircher/nvim-config.git ~/.config/nvim
 
 ## Plugins
 
