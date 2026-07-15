@@ -88,3 +88,4 @@ git submodule
 - Keep configuration minimal and readable; prefer Neovim built-ins
 - Avoid executing remote or unpinned code; keep submodules pinned
 - Match coding style in existing files; avoid unnecessary refactors
+- Feel free to read my Ghostty config under ~/.config/ghostty/

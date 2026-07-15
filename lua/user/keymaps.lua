@@ -7,6 +7,12 @@ map("n", "<C-j>", "<C-w>j", opts)
 map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-l>", "<C-w>l", opts)
 
+-- Word navigation with Option+Left/Right
+map("n", "<M-Left>", "b", { desc = "Move to previous word" })
+map("n", "<M-Right>", "w", { desc = "Move to next word" })
+map("i", "<M-Left>", "<C-Left>", { desc = "Move to previous word" })
+map("i", "<M-Right>", "<C-Right>", { desc = "Move to next word" })
+
 -- Convenience
 map(
   "n",
