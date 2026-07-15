@@ -80,6 +80,7 @@ indentation remains in use otherwise.
   file types.
 - Quality-of-life keymaps:
   - `<C-h/j/k/l>` to move between splits
+  - `Option-Left` and `Option-Right` to move by word in normal and insert modes
   - `<leader>h` to clear search highlighting
   - `<leader>s` to save the buffer if it has changed
   - `<leader>l` to toggle whitespace indicators
@@ -95,6 +96,9 @@ indentation remains in use otherwise.
   under `~/journal/YYYY/MM/DD.md` and append a time heading.
 - Commit messages: `:CommitMsg` generates a commit message from staged changes
   with `pi` (requires `pi` and `seatbelt`).
+- Neovim 0.12's optional commands are enabled:
+  - `:Undotree` toggles a view of the current buffer's undo history.
+  - `:DiffTool {left} {right}` compares two files or directories side by side.
 - Lua formatting: run `stylua init.lua lua/` from the repo root to automatically
   format Lua code.
 
@@ -130,8 +134,7 @@ them immediately.
 
 Neovim 0.12.0 adds a built-in plugin manager. This config currently uses Git
 submodules under `plugins/start/`: four plugins are managed as submodules and
-loaded through Neovim's native package system (`pack/*/start/*`) via a symlink
-[^1].
+loaded through Neovim's native package system (`pack/*/start/*`) via a symlink.
 
 ### What `vim.pack` is
 
@@ -168,10 +171,6 @@ I would not switch yet. Here's why:
 If I were starting from scratch today on 0.12+, `vim.pack` would be a reasonable
 choice. It removes the need for the symlink and manual submodule commands.
 However, migrating a working setup to an experimental API offers little benefit.
-
-[^1]: The `pcall(require, "nvim-treesitter")` in `lua/user/plugins.lua` just
-    ensures the module is available. The plugin itself is already on the runtime
-    path from the `start/` directory.
 
 ## TODO
 

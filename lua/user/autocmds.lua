@@ -5,8 +5,12 @@ vim.filetype.add({
   },
 })
 
+local group = vim.api.nvim_create_augroup("user_autocmds", { clear = true })
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
+  group = group,
+  desc = "Highlight yanked text",
   callback = function()
     pcall(vim.highlight.on_yank, { higroup = "IncSearch", timeout = 150 })
   end,
@@ -14,11 +18,15 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Auto-detect external file changes
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = group,
+  desc = "Check for external file changes",
   command = "checktime",
 })
 
 -- Enable spellchecking for text files
 vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  desc = "Enable spell checking for text files",
   pattern = { "markdown", "gitcommit", "text" },
   callback = function()
     vim.opt_local.spell = true
@@ -32,6 +40,8 @@ end
 
 -- Enable Treesitter features for selected languages when they are available.
 vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  desc = "Enable Tree-sitter features when available",
   pattern = {
     "c",
     "lua",

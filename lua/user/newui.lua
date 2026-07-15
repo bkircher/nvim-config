@@ -6,5 +6,8 @@
 -- Type `g<` to move into the output.
 
 if vim.fn.has("nvim-0.12") == 1 then
-  require("vim._core.ui2").enable({})
+  local ok, ui2 = pcall(require, "vim._core.ui2")
+  if ok then
+    ui2.enable({})
+  end
 end

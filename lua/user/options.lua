@@ -1,12 +1,8 @@
 local options = {
-  backup = false, -- No backup file
   number = true, -- Show line numbers
   termguicolors = true, -- True color
-  list = false, -- Show whitespace using listchars
   listchars = "tab:▸ ,eol:¬,trail:·", -- Symbols for tabstops, EOLs, trailing white space
-  wrap = true, -- Wrap long lines
   linebreak = true, -- Break lines at word boundaries
-  cursorline = false, -- Highlight the current line
   scrolloff = 4, -- Keep some screen lines below/above/left/right of the cursor
   sidescrolloff = 8,
   mouse = "a", -- Enable mouse support
