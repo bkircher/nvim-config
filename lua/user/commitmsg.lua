@@ -27,6 +27,9 @@ local function generate_commit_msg()
     return
   end
 
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+
   vim.notify("Generating commit message…")
 
   local prompt = "Write a concise Git commit message for these staged changes. "
@@ -68,8 +71,12 @@ local function generate_commit_msg()
         vim.notify("pi returned empty response", vim.log.levels.WARN)
         return
       end
+      if not vim.api.nvim_buf_is_valid(bufnr) then
+        vim.notify("Original buffer no longer exists", vim.log.levels.WARN)
+        return
+      end
       local lines = vim.split(text, "\n", { plain = true })
-      vim.api.nvim_put(lines, "l", true, true)
+      vim.api.nvim_buf_set_lines(bufnr, cursor[1], cursor[1], false, lines)
     end)
   end)
 end
