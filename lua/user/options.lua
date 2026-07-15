@@ -1,5 +1,7 @@
 local options = {
   number = true, -- Show line numbers
+  cursorline = true, -- Highlight the current line number
+  cursorlineopt = "number",
   termguicolors = true, -- True color
   listchars = "tab:▸ ,eol:¬,trail:·", -- Symbols for tabstops, EOLs, trailing white space
   linebreak = true, -- Break lines at word boundaries
