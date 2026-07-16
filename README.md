@@ -8,7 +8,8 @@ channels on YouTube.
 
 Clone this repository:
 
-    git clone --recurse-submodules git@github.com:bkircher/nvim-config.git ~/.config/nvim
+    git clone --recurse-submodules git@github.com:bkircher/nvim-config.git \
+        ~/.config/nvim
 
 ## Plugins
 
@@ -68,9 +69,9 @@ later, and a C compiler. Open Neovim and install all parsers configured in
 
 The `eex` parser is also used for the `eelixir` file type. The command installs
 the pinned parsers and their matching queries; it is a no-op for parsers that
-are already installed. Tree-sitter indentation and folding are enabled only
-when the parser starts and the relevant query is available, so filetype
-indentation remains in use otherwise.
+are already installed. Tree-sitter indentation and folding are enabled only when
+the parser starts and the relevant query is available, so file type indentation
+remains in use otherwise.
 
 ## Defaults and keymaps
 
@@ -108,7 +109,7 @@ This config uses a personal word list located at:
 
     ~/.config/spelling/en.utf-8.add
 
-- Neovim options set `spellfile` to that path and set `spelllang` to `en_us` and
+- Neovim options set `spellfile` to that path and `spelllang` to `en_us` and
   `de_de`.
 - Spell checking is enabled automatically for `markdown`, `gitcommit`, and
   `text`. Toggle it with `<leader>ss` in any buffer.
@@ -153,24 +154,24 @@ loaded through Neovim's native package system (`pack/*/start/*`) via a symlink.
 
 ### Should I switch?
 
-I would not switch yet. Here's why:
+Not yet:
 
 1. `vim.pack` is experimental. The help explicitly warns that it may change,
    while the submodule approach is stable and well understood.
-2. It follows a different philosophy. `vim.pack` manages plugins in the data
-   directory (`~/.local/share/nvim/site/pack/core/opt/`), not in the config
-   directory under `~/.config/nvim/plugins/start/`. With `vim.pack`, plugin
-   sources live outside the config and are tracked through a lockfile.
-3. The current approach already works well. Submodules provide pinned revisions,
-   reproducible clones (`--recurse-submodules`), and no dependency on a Neovim
-   API that may still change.
-4. It does not address a current pain point. `vim.pack` mainly helps people who
-   do not want to manage submodules manually, and that workflow is already in
-   place here.
+2. `vim.pack` manages plugins in the data directory
+   (`~/.local/share/nvim/site/pack/core/opt/`), not in the config directory
+   under `~/.config/nvim/plugins/start/`. With `vim.pack`, plugin sources live
+   outside the config and are tracked through a lockfile.
+3. Submodules already provide pinned revisions, reproducible clones
+   (`--recurse-submodules`), and no dependency on a Neovim API that may still
+   change.
+4. Manual submodule management is not a problem in this setup, so automating it
+   is not a reason to migrate.
 
-If I were starting from scratch today on 0.12+, `vim.pack` would be a reasonable
-choice. It removes the need for the symlink and manual submodule commands.
-However, migrating a working setup to an experimental API offers little benefit.
+If I were starting from scratch with Neovim 0.12+, I would consider `vim.pack`
+because it removes the need for the symlink and manual submodule commands. For
+the existing setup, avoiding those steps does not justify depending on an
+experimental API for now. Let's see what the future brings.
 
 ## TODO
 

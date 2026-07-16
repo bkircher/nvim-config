@@ -2,8 +2,6 @@
 
 This configuration requires Neovim 0.12.0+.
 
-## Development guidelines
-
 - Add new configuration modules under `lua/user/` and require them from
   `init.lua`.
 - Configure Treesitter filetypes in the `FileType` autocmds in
