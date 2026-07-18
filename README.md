@@ -91,8 +91,9 @@ remains in use otherwise.
   - `<leader>ff` to find files
   - `<leader>fg` to live grep (requires `ripgrep`)
   - `<leader>fh` to search help tags
-- Deno formatting: `<leader>f` formats the current buffer with `deno fmt` if
-  `deno` is installed and the file type or extension is supported.
+- Formatting: `<leader>f` formats Markdown and MDX with `hongdown`, and other
+  supported file types with `deno fmt`. Formatting uses the current buffer, so
+  unsaved changes are included.
 - Journal helper: `<leader>j` and `:JournalEntry` open today's journal file
   under `~/journal/YYYY/MM/DD.md` and append a time heading.
 - Commit messages: `:CommitMsg` generates a commit message from staged changes
