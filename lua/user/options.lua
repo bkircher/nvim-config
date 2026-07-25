@@ -21,6 +21,9 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+-- Fuzzy-match command-line completions
+vim.opt.wildoptions:append("fuzzy")
+
 -- Configure blinking cursor shapes across modes
 vim.opt.guicursor = {
   "n-v-c-sm:block-Cursor/lCursor-blinkwait175-blinkoff150-blinkon175",
