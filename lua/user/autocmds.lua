@@ -45,6 +45,41 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+local function configure_json_indentation(buf)
+  local use_tabs = false
+  local min_spaces
+
+  -- Inspect a reasonable prefix rather than potentially loading a huge file.
+  local last = math.min(vim.api.nvim_buf_line_count(buf), 1000)
+  for _, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, last, false)) do
+    local indent = line:match("^([ \t]+)%S")
+    if indent then
+      if indent:find("\t", 1, true) then
+        use_tabs = true
+      else
+        min_spaces = math.min(min_spaces or #indent, #indent)
+      end
+    end
+  end
+
+  -- Empty, minified, or otherwise ambiguous files default to two spaces.
+  local width = not use_tabs and min_spaces == 4 and 4 or 2
+
+  vim.bo[buf].expandtab = not use_tabs
+  vim.bo[buf].shiftwidth = width
+  vim.bo[buf].softtabstop = width
+  vim.bo[buf].tabstop = width
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  desc = "Detect JSON indentation",
+  pattern = { "json", "jsonc", "jsonl" },
+  callback = function(args)
+    configure_json_indentation(args.buf)
+  end,
+})
+
 -- Enable spellchecking for text files
 vim.api.nvim_create_autocmd("FileType", {
   group = group,
