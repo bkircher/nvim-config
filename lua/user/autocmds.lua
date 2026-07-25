@@ -45,7 +45,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-local function configure_json_indentation(buf)
+local function configure_indentation(buf)
   local use_tabs = false
   local min_spaces
 
@@ -73,10 +73,18 @@ end
 
 vim.api.nvim_create_autocmd("FileType", {
   group = group,
-  desc = "Detect JSON indentation",
-  pattern = { "json", "jsonc", "jsonl" },
+  desc = "Detect JSON, JavaScript, and TypeScript indentation",
+  pattern = {
+    "javascript",
+    "javascriptreact",
+    "json",
+    "jsonc",
+    "jsonl",
+    "typescript",
+    "typescriptreact",
+  },
   callback = function(args)
-    configure_json_indentation(args.buf)
+    configure_indentation(args.buf)
   end,
 })
 
