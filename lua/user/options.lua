@@ -5,6 +5,7 @@ local options = {
   termguicolors = true, -- True color
   listchars = "tab:▸ ,eol:¬,trail:·", -- Symbols for tabstops, EOLs, trailing white space
   linebreak = true, -- Break lines at word boundaries
+  wrap = false, -- Do not wrap long lines
   scrolloff = 4, -- Keep some screen lines below/above/left/right of the cursor
   sidescrolloff = 8,
   mouse = "a", -- Enable mouse support
