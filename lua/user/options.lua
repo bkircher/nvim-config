@@ -19,19 +19,19 @@ local options = {
 }
 
 for k, v in pairs(options) do
-  vim.opt[k] = v
+  vim.o[k] = v
 end
 
 -- Fuzzy-match command-line completions
-vim.opt.wildoptions:append("fuzzy")
+vim.o.wildoptions = "pum,tagfile,fuzzy"
 
 -- Configure blinking cursor shapes across modes
-vim.opt.guicursor = {
+vim.o.guicursor = table.concat({
   "n-v-c-sm:block-Cursor/lCursor-blinkwait175-blinkoff150-blinkon175",
   "i-ci-ve:ver25-Cursor/lCursor-blinkwait700-blinkoff400-blinkon250",
   "r-cr-o:hor20-Cursor/lCursor-blinkwait700-blinkoff400-blinkon250",
-}
+}, ",")
 
 -- Spelling configuration; user dict lives in ~/.config/spelling
-vim.opt.spelllang = { "en_us", "de_de" }
-vim.opt.spellfile = vim.fn.expand("~/.config/spelling/en.utf-8.add")
+vim.o.spelllang = "en_us,de_de"
+vim.o.spellfile = vim.fn.expand("~/.config/spelling/en.utf-8.add")

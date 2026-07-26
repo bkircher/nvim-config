@@ -11,6 +11,7 @@ This configuration requires Neovim 0.12.0+.
 - Do not introduce a plugin manager. Plugins are pinned Git submodules under
   `plugins/start/`.
 - Prefer Neovim built-ins and keep the configuration minimal.
+- Prefer `vim.o`, `vim.bo`, and `vim.wo` over `vim.opt`, `vim.opt_local`, and `vim.opt_global`; use `vim.bo` for buffer-local options and `vim.wo` for window-local options such as `spell`.
 - Do not execute remote or unpinned code.
 - Match the existing style and avoid unnecessary refactors.
 - After changing Lua files, run `stylua init.lua lua/` from the repository root.

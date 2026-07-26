@@ -27,8 +27,9 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 vim.api.nvim_create_autocmd("FileType", {
   group = group,
   desc = "Disable automatic comment continuation",
-  callback = function()
-    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+  callback = function(args)
+    local options = vim.bo[args.buf]
+    options.formatoptions = options.formatoptions:gsub("[cro]", "")
   end,
 })
 
@@ -37,11 +38,12 @@ vim.api.nvim_create_autocmd("FileType", {
   group = group,
   desc = "Configure shell script indentation",
   pattern = { "bash", "sh", "zsh" },
-  callback = function()
-    vim.opt_local.expandtab = true
-    vim.opt_local.shiftwidth = 4
-    vim.opt_local.softtabstop = 4
-    vim.opt_local.tabstop = 4
+  callback = function(args)
+    local options = vim.bo[args.buf]
+    options.expandtab = true
+    options.shiftwidth = 4
+    options.softtabstop = 4
+    options.tabstop = 4
   end,
 })
 
@@ -94,7 +96,7 @@ vim.api.nvim_create_autocmd("FileType", {
   desc = "Enable spell checking for text files",
   pattern = { "markdown", "gitcommit", "text" },
   callback = function()
-    vim.opt_local.spell = true
+    vim.wo.spell = true
   end,
 })
 

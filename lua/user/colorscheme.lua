@@ -1,6 +1,6 @@
 vim.g.everforest_background = "hard"
 vim.g.everforest_transparent_background = 1
-vim.opt.background = "dark"
+vim.o.background = "dark"
 
 local ok = pcall(vim.cmd.colorscheme, "everforest")
 
