@@ -1,8 +1,9 @@
 -- Generate git commit message
 -- Invokes pi's git-commit-message skill and inserts the result at cursor.
 
-local function pi_supported()
-  return vim.fn.executable("pi") == 1
+local function nvm_supported()
+  local nvm_dir = vim.env.NVM_DIR or vim.fn.expand("~/.nvm")
+  return vim.fn.filereadable(nvm_dir .. "/nvm.sh") == 1
 end
 
 local function seatbelt_supported()
@@ -10,8 +11,8 @@ local function seatbelt_supported()
 end
 
 local function generate_commit_msg()
-  if not pi_supported() then
-    vim.notify("pi not found in PATH", vim.log.levels.WARN)
+  if not nvm_supported() then
+    vim.notify("nvm not found", vim.log.levels.WARN)
     return
   end
 
@@ -39,6 +40,15 @@ local function generate_commit_msg()
   local prompt = "/skill:git-commit-message"
 
   local cmd = {
+    vim.env.SHELL or "/bin/zsh",
+    "-c",
+    [[
+      export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+      source "$NVM_DIR/nvm.sh" || exit 1
+      nvm use --silent default || exit 1
+      exec "$@"
+    ]],
+    "CommitMsg",
     "seatbelt",
     "run",
     "pi",
