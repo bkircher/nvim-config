@@ -1,5 +1,5 @@
 -- Generate git commit message
--- Sends staged diff to pi and inserts the resulting commit message at cursor.
+-- Invokes pi's git-commit-message skill and inserts the result at cursor.
 
 local function pi_supported()
   return vim.fn.executable("pi") == 1
@@ -20,9 +20,13 @@ local function generate_commit_msg()
     return
   end
 
-  -- Grab staged diff first
-  local diff = vim.fn.system({ "git", "diff", "--staged" })
-  if vim.v.shell_error ~= 0 or not diff or vim.trim(diff) == "" then
+  local staged_files =
+    vim.fn.system({ "git", "diff", "--staged", "--name-only" })
+  if
+    vim.v.shell_error ~= 0
+    or not staged_files
+    or vim.trim(staged_files) == ""
+  then
     vim.notify("No staged changes", vim.log.levels.INFO)
     return
   end
@@ -32,27 +36,22 @@ local function generate_commit_msg()
 
   vim.notify("Generating commit message…")
 
-  local prompt = "Write a concise Git commit message for these staged changes. "
-    .. "Output only the commit message, nothing else.\n\n"
-    .. diff
+  local prompt = "/skill:git-commit-message"
 
   local cmd = {
     "seatbelt",
     "run",
     "pi",
     "--print",
-    "--no-tools",
+    "--model",
+    "github-copilot/gemini-3.5-flash",
+    "--tools",
+    "bash",
     "--no-session",
     "--no-context-files",
-    "--system-prompt",
-    "You are a Git commit message generator. Output only the commit message, nothing else. Rules:\n\n"
-      .. "1. Separate subject from body with a blank line\n"
-      .. "2. Limit the subject line to 50 characters\n"
-      .. "3. Capitalize the subject line\n"
-      .. "4. Do not end the subject line with a period\n"
-      .. "5. Use the imperative mood in the subject line\n"
-      .. "6. Wrap the body at 72 characters\n"
-      .. "7. Use the body to explain what and why vs. how",
+    "--no-skills",
+    "--skill",
+    vim.fn.expand("~/.pi/agent/skills/git-commit-message/SKILL.md"),
   }
 
   vim.system(cmd, { text = true, stdin = prompt }, function(res)
