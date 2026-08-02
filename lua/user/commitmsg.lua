@@ -54,7 +54,7 @@ local function generate_commit_msg()
     "pi",
     "--print",
     "--model",
-    "github-copilot/gemini-3.5-flash",
+    "github-copilot/gpt-5.6-luna",
     "--tools",
     "bash",
     "--no-session",
