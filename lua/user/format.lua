@@ -141,7 +141,7 @@ vim.api.nvim_create_user_command(
   { desc = "Format current buffer with deno fmt" }
 )
 
-vim.keymap.set("n", "<leader>f", format_buffer, {
+vim.keymap.set("n", "<leader>cf", format_buffer, {
   noremap = true,
   silent = true,
   desc = "Format current buffer",

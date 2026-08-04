@@ -84,33 +84,33 @@ Defaults and keymaps
  -  The color scheme is Everforest (dark/hard) with a transparent background.
  -  Tree-sitter is used for highlighting, indentation, and folding in selected
     file types.
- -  Quality-of-life keymaps:
-     -  `<C-h/j/k/l>` to move between splits
-     -  `Option-Left` and `Option-Right` to move by word in normal and insert
-        modes
-     -  `<leader>h` to clear search highlighting
-     -  `<leader>s` to save the buffer if it has changed
-     -  `<leader>l` to toggle whitespace indicators
-     -  `<leader>d` to open the current word in macOS Dictionary
- -  Neo-tree: `<leader>b` toggles the file tree.
- -  Telescope fuzzy finder:
-     -  `<leader>fb` to list buffers
-     -  `<leader>ff` to find files
-     -  `<leader>fg` to live grep (requires `ripgrep`)
-     -  `<leader>fh` to search help tags
- -  Formatting: `<leader>f` formats Markdown and MDX with `hongdown`, and other
-    supported file types with `deno fmt`. Formatting uses the current buffer, so
-    unsaved changes are included.
- -  Journal helper: `<leader>j` and `:JournalEntry` open today's journal file
-    under `~/journal/YYYY/MM/DD.md` and append a time heading.
- -  Commit messages: `:CommitMsg` generates a commit message from staged changes
-    with `pi` (requires `pi` and `seatbelt`).
- -  Neovim 0.12's optional commands are enabled:
-     -  `:Undotree` toggles a view of the current buffer's undo history.
-     -  `:DiffTool {left} {right}` compares two files or directories side by
-        side.
- -  Lua formatting: run `stylua init.lua lua/` from the repo root to
-    automatically format Lua code.
+
+### Custom key mappings
+
+| Mode         | Mapping                  | Action                                                          |
+| ------------ | ------------------------ | --------------------------------------------------------------- |
+| Normal       | `<C-h>`                  | Move to the left window                                         |
+| Normal       | `<C-j>`                  | Move to the window below                                        |
+| Normal       | `<C-k>`                  | Move to the window above                                        |
+| Normal       | `<C-l>`                  | Move to the right window                                        |
+| Normal       | `Option-Left` (`<M-b>`)  | Move to the previous word                                       |
+| Normal       | `Option-Right` (`<M-f>`) | Move to the next word                                           |
+| Normal       | `<leader>b`              | Toggle the file tree                                            |
+| Normal       | `<leader>cf`             | Format the current buffer                                       |
+| Normal       | `<leader>d`              | Open the current word in macOS Dictionary                       |
+| Normal       | `<leader>fb`             | List buffers                                                    |
+| Normal       | `<leader>ff`             | Find files                                                      |
+| Normal       | `<leader>fg`             | Search text with live grep (requires `ripgrep`)                 |
+| Normal       | `<leader>fh`             | Search help tags                                                |
+| Normal       | `<leader>h`              | Clear search highlighting                                       |
+| Normal       | `<leader>j`              | Create a journal entry                                          |
+| Normal       | `<leader>l`              | Toggle whitespace indicators                                    |
+| Normal       | `<leader>ts`             | Toggle spelling                                                 |
+| Normal       | `<leader>w`              | Save the buffer if it changed                                   |
+| Insert       | `Option-Left` (`<M-b>`)  | Move to the previous word                                       |
+| Insert       | `Option-Right` (`<M-f>`) | Move to the next word                                           |
+| Command line | `<Up>`                   | Select the previous completion, or move through command history |
+| Command line | `<Down>`                 | Select the next completion, or move through command history     |
 
 
 Spelling
@@ -125,7 +125,7 @@ This config uses a personal word list located at:
  -  Neovim options set `spellfile` to that path and `spelllang` to `en_us` and
     `de_de`.
  -  Spell checking is enabled automatically for `markdown`, `gitcommit`, and
-    `text`. Toggle it with `<leader>ss` in any buffer.
+    `text`. Toggle it with `<leader>ts` in any buffer.
  -  Add words from inside Neovim with `zg` (appends to `en.utf-8.add`).
 
 ### Recompile after dictionary changes

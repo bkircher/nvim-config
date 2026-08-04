@@ -24,7 +24,7 @@ end, { expr = true, desc = "Select next command-line completion" })
 -- Convenience
 map(
   "n",
-  "<leader>s",
+  "<leader>w",
   ":update<CR>",
   { desc = "Save buffer (if changed)", silent = true }
 )
@@ -46,7 +46,7 @@ map("n", "<leader>d", function()
 end, { desc = "Open word in macOS Dictionary" })
 
 -- Spelling toggle
-map("n", "<leader>ss", function()
+map("n", "<leader>ts", function()
   vim.wo.spell = not vim.wo.spell
   vim.notify("spell: " .. (vim.wo.spell and "on" or "off"))
 end, { desc = "Toggle spell" })
