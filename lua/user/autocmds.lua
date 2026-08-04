@@ -156,22 +156,47 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Folding options are window-local, so reset them whenever a buffer enters a window.
+local treesitter_fold_options = {
+  foldmethod = "expr",
+  foldexpr = "v:lua.vim.treesitter.foldexpr()",
+  foldlevel = 99,
+}
+
+-- Folding options are window-local, so track the values changed in each window.
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = group,
   desc = "Configure Tree-sitter folding",
   callback = function(args)
-    vim.wo.foldmethod = "manual"
-    vim.wo.foldexpr = "0"
-    vim.wo.foldlevel = 0
-
     local lang = start_treesitter(args.buf)
-    if not lang or not has_treesitter_query(lang, "folds") then
+    local has_folds = lang and has_treesitter_query(lang, "folds")
+    local state = vim.w.user_treesitter_fold_state
+
+    if state then
+      if has_folds then
+        return
+      end
+
+      for option, value in pairs(state.previous) do
+        if vim.wo[option] == treesitter_fold_options[option] then
+          vim.wo[option] = value
+        end
+      end
+      vim.w.user_treesitter_fold_state = nil
       return
     end
 
-    vim.wo.foldmethod = "expr"
-    vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-    vim.wo.foldlevel = 99
+    if not has_folds then
+      return
+    end
+
+    -- Set foldlevel only when this window first switches to Tree-sitter folding.
+    local previous = {}
+    for option, value in pairs(treesitter_fold_options) do
+      if vim.wo[option] ~= value then
+        previous[option] = vim.wo[option]
+        vim.wo[option] = value
+      end
+    end
+    vim.w.user_treesitter_fold_state = { previous = previous }
   end,
 })
