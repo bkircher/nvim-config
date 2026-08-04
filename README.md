@@ -92,6 +92,7 @@ Defaults and keymaps
      -  `<leader>s` to save the buffer if it has changed
      -  `<leader>l` to toggle whitespace indicators
      -  `<leader>d` to open the current word in macOS Dictionary
+ -  Neo-tree: `<leader>b` toggles the file tree.
  -  Telescope fuzzy finder:
      -  `<leader>fb` to list buffers
      -  `<leader>ff` to find files
