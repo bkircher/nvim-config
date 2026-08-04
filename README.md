@@ -1,62 +1,52 @@
 # nvim-config
 
-This is a minimal Neovim configuration I use for work. It does not rely on
-plugin managers and does not execute untrusted code from the internet.
+This is a minimal Neovim configuration I use for work. It uses Neovim's
+built-in `vim.pack` and pins plugin revisions in `nvim-pack-lock.json`.
 
 If you want to learn more about this approach, there are plenty of videos and
 channels on YouTube.
 
 Clone this repository:
 
-    git clone --recurse-submodules git@github.com:bkircher/nvim-config.git \
-        ~/.config/nvim
+    git clone git@github.com:bkircher/nvim-config.git ~/.config/nvim
 
 ## Plugins
 
-You can manage plugins manually in Neovim; see `:help packages`. In this setup,
-I use Git submodules to install, update, and track plugins inside the Neovim
-config directory (`~/.config/nvim`), and a symlink exposes them on the runtime
-path:
+This config uses the built-in `vim.pack` plugin manager; see `:help vim.pack`.
+Neovim still marks it as experimental, but it is stable enough for daily use.
+Plugin sources are declared in `lua/user/plugins.lua`. Exact revisions are
+stored in the tracked `nvim-pack-lock.json` file.
 
-    ~/.local/share/nvim/site/pack/plugins → ~/.config/nvim/plugins
+`vim.pack` installs plugins under:
+
+    ~/.local/share/nvim/site/pack/core/opt/
+
+On the first start after cloning this config, confirm the installation when
+Neovim asks. The lockfile makes `vim.pack` install the recorded revisions.
 
 ### Installing new plugins
 
-Create the necessary directories and symlink first:
-
-    $ mkdir -p ~/.local/share/nvim/site/pack/
-    $ cd ~/.local/share/nvim/site/pack
-
-Create a symlink into your Neovim config directory:
-
-    $ ln -s ~/.config/nvim/plugins plugins
-
-Then clone the plugin of your choice into your `~/.config/nvim/plugins/start`
-directory. For example, you would install nvim-treesitter as follows:
-
-    $ cd ~/.config/nvim
-    $ git submodule add git@github.com:nvim-treesitter/nvim-treesitter.git \
-        plugins/start/nvim-treesitter
-
-This adds a Git submodule to your source tree, which you can inspect and manage
-with Git. For example, `git submodule` lists installed plugins and their pinned
-revisions. Example output:
-
-    $ git submodule
-     b03a03148c8b34c24c96960b93da9c8883d11f54 plugins/start/everforest (v0.3.0-116-gb03a031)
-     4916d6592ede8c07973490d9322f187e07dfefac plugins/start/nvim-treesitter (v0.9.3-804-g4916d659)
-     b9fd5226c2f76c951fc8ed5923d85e4de065e509 plugins/start/plenary.nvim (v0.1.4-38-gb9fd522)
-     cfb85dcf7f822b79224e9e6aef9e8c794211b20b plugins/start/telescope.nvim (nvim-0.5.1-665-gcfb85dc)
+Add the reviewed plugin source to the `vim.pack.add()` call in
+`lua/user/plugins.lua`, then restart Neovim. Review and track the resulting
+change to `nvim-pack-lock.json`.
 
 ### Updating plugins
 
-To update a plugin, such as nvim-treesitter, navigate to the plugin directory
-and pull the latest changes:
+Start an interactive update from Neovim:
 
-    $ cd ~/.config/nvim/plugins/start/nvim-treesitter
-    $ git pull
+    :lua vim.pack.update()
 
-Then reopen Neovim and run `:TSUpdate` to update parsers if needed.
+Review the changes in the confirmation buffer. Use `:write` to apply them or
+`:quit` to discard them. Track the resulting lockfile change, then restart
+Neovim. After an nvim-treesitter update, run `:TSUpdate` to update parsers if
+needed.
+
+### Removing plugins
+
+Remove the plugin source from `lua/user/plugins.lua`, restart Neovim, and then
+remove the inactive plugin and its lockfile entry:
+
+    :lua vim.pack.del({ "plugin-name" })
 
 ### Tree-sitter parsers
 
@@ -132,54 +122,10 @@ From the shell:
 Note: adding words with `zg` writes directly to `en.utf-8.add`, and Neovim uses
 them immediately.
 
-## About `vim.pack`
-
-Neovim 0.12.0 adds a built-in plugin manager. This config currently uses Git
-submodules under `plugins/start/`: four plugins are managed as submodules and
-loaded through Neovim's native package system (`pack/*/start/*`) via a symlink.
-
-### What `vim.pack` is
-
-`vim.pack` is a built-in plugin manager added in Neovim 0.12 (`:help vim.pack`):
-
-- It is still marked experimental.
-- It uses Git under the hood. It clones repositories into `site/pack/core/opt/`
-  (the standard data path, not the config directory).
-- It provides `vim.pack.add()`, `.update()`, `.del()`, and `.get()`.
-- It generates a lockfile (`nvim-pack-lock.json`) in the config directory to pin
-  revisions.
-- `vim.pack.add()` auto-installs missing plugins on first run, then calls
-  `:packadd` to load them.
-- Updates happen interactively through `vim.pack.update()` with a confirmation
-  buffer.
-
-### Should I switch?
-
-Not yet:
-
-1. `vim.pack` is experimental. The help explicitly warns that it may change,
-   while the submodule approach is stable and well understood.
-2. `vim.pack` manages plugins in the data directory
-   (`~/.local/share/nvim/site/pack/core/opt/`), not in the config directory
-   under `~/.config/nvim/plugins/start/`. With `vim.pack`, plugin sources live
-   outside the config and are tracked through a lockfile.
-3. Submodules already provide pinned revisions, reproducible clones
-   (`--recurse-submodules`), and no dependency on a Neovim API that may still
-   change.
-4. Manual submodule management is not a problem in this setup, so automating it
-   is not a reason to migrate.
-
-If I were starting from scratch with Neovim 0.12+, I would consider `vim.pack`
-because it removes the need for the symlink and manual submodule commands. For
-the existing setup, avoiding those steps does not justify depending on an
-experimental API for now. Let's see what the future brings.
-
 ## TODO
 
 - [ ] Add minimal built-in LSP startup that only activates when servers are
       present (no plugins, no downloads).
-- [ ] Switch from manual submodules to built-in `vim.pack` when it becomes
-      stable.
 
 ## Links
 

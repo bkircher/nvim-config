@@ -8,8 +8,9 @@ This configuration requires Neovim 0.12.0+.
   `init.lua`.
 - Configure Treesitter filetypes in the `FileType` autocmds in
   `lua/user/autocmds.lua`.
-- Do not introduce a plugin manager. Plugins are pinned Git submodules under
-  `plugins/start/`.
+- Use Neovim's built-in `vim.pack` for plugins. Do not introduce a third-party
+  plugin manager. Declare plugins in `lua/user/plugins.lua` and track
+  `nvim-pack-lock.json`.
 - Prefer Neovim built-ins and keep the configuration minimal.
 - Prefer `vim.o`, `vim.bo`, and `vim.wo` over `vim.opt`, `vim.opt_local`, and `vim.opt_global`; use `vim.bo` for buffer-local options and `vim.wo` for window-local options such as `spell`.
 - Do not execute remote or unpinned code.

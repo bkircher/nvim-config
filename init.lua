@@ -12,9 +12,9 @@ vim.g.loaded_perl_provider = 0
 vim.g.loaded_ruby_provider = 0
 
 require("user.options")
+require("user.plugins")
 require("user.colorscheme")
 require("user.rpmspec")
-require("user.plugins")
 require("user.keymaps")
 require("user.autocmds")
 require("user.format")
