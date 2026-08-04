@@ -19,6 +19,8 @@ local extension_aliases = {
   tsx = "tsx",
 }
 
+local formatter_timeout_ms = 5000
+
 local filetype_extensions = {
   javascript = "js",
   javascriptreact = "jsx",
@@ -70,7 +72,7 @@ local function apply_formatter(command, name)
   local buf = 0
   local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
   local input = table.concat(lines, "\n")
-  local res = vim.system(command, { stdin = input }):wait()
+  local res = vim.system(command, { stdin = input }):wait(formatter_timeout_ms)
   local output = res.stdout or ""
   local code = res.code or 1
 
