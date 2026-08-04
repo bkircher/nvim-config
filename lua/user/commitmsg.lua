@@ -21,18 +21,29 @@ local function generate_commit_msg()
     return
   end
 
-  local staged_files =
-    vim.fn.system({ "git", "diff", "--staged", "--name-only" })
+  local bufnr = vim.api.nvim_get_current_buf()
+  local buffer_path = vim.api.nvim_buf_get_name(bufnr)
+  local git_root = buffer_path ~= "" and vim.fs.root(buffer_path, ".git")
+  if not git_root then
+    vim.notify("Current buffer is not in a Git repository", vim.log.levels.WARN)
+    return
+  end
+
+  local staged_files = vim
+    .system({ "git", "diff", "--staged", "--name-only" }, {
+      cwd = git_root,
+      text = true,
+    })
+    :wait()
   if
-    vim.v.shell_error ~= 0
-    or not staged_files
-    or vim.trim(staged_files) == ""
+    staged_files.code ~= 0
+    or not staged_files.stdout
+    or vim.trim(staged_files.stdout) == ""
   then
     vim.notify("No staged changes", vim.log.levels.INFO)
     return
   end
 
-  local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
 
   vim.notify("Generating commit message…")
@@ -64,7 +75,7 @@ local function generate_commit_msg()
     vim.fn.expand("~/.pi/agent/skills/git-commit-message/SKILL.md"),
   }
 
-  vim.system(cmd, { text = true, stdin = prompt }, function(res)
+  vim.system(cmd, { cwd = git_root, text = true, stdin = prompt }, function(res)
     vim.schedule(function()
       if res.code ~= 0 or not res.stdout or res.stdout == "" then
         local err = res.stderr and vim.trim(res.stderr) or ""
