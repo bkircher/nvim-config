@@ -1,0 +1,15 @@
+include = [
+  "README.md",
+  "AGENTS.md",
+]
+exclude = [
+]
+
+[heading]
+sentence_case = true
+proper_nouns = [
+]
+
+[code_block.formatters]
+json = ["deno", "fmt", "--ext=jsonc", "-"]
+jsonc = ["deno", "fmt", "--ext=jsonc", "-"]
