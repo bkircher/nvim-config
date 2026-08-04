@@ -168,14 +168,17 @@ local treesitter_fold_options = {
   foldlevel = 99,
 }
 
--- Folding options are window-local, so track the values changed in each window.
+-- Folding options are local to a window and buffer pair.
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group = group,
   desc = "Configure Tree-sitter folding",
   callback = function(args)
     local lang = start_treesitter(args.buf)
     local has_folds = lang and has_treesitter_query(lang, "folds")
-    local state = vim.w.user_treesitter_fold_state
+    local states = vim.w.user_treesitter_fold_states or {}
+    local key = tostring(args.buf)
+    local state = states[key]
+    local options = vim.wo[0][0]
 
     if state then
       if has_folds then
@@ -183,11 +186,12 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       end
 
       for option, value in pairs(state.previous) do
-        if vim.wo[option] == treesitter_fold_options[option] then
-          vim.wo[option] = value
+        if options[option] == treesitter_fold_options[option] then
+          options[option] = value
         end
       end
-      vim.w.user_treesitter_fold_state = nil
+      states[key] = nil
+      vim.w.user_treesitter_fold_states = states
       return
     end
 
@@ -195,14 +199,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       return
     end
 
-    -- Set foldlevel only when this window first switches to Tree-sitter folding.
+    -- Set foldlevel only when this buffer first uses Tree-sitter folds in this window.
     local previous = {}
     for option, value in pairs(treesitter_fold_options) do
-      if vim.wo[option] ~= value then
-        previous[option] = vim.wo[option]
-        vim.wo[option] = value
+      if options[option] ~= value then
+        previous[option] = options[option]
+        options[option] = value
       end
     end
-    vim.w.user_treesitter_fold_state = { previous = previous }
+    states[key] = { previous = previous }
+    vim.w.user_treesitter_fold_states = states
   end,
 })
