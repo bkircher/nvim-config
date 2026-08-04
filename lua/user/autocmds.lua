@@ -90,13 +90,19 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- Enable spellchecking for text files
+local spell_filetypes = {
+  gitcommit = true,
+  markdown = true,
+  text = true,
+}
+
+-- Enable spell checking only for text files.
 vim.api.nvim_create_autocmd("FileType", {
   group = group,
-  desc = "Enable spell checking for text files",
-  pattern = { "markdown", "gitcommit", "text" },
-  callback = function()
-    vim.wo.spell = true
+  desc = "Configure spell checking for the file type",
+  pattern = "*",
+  callback = function(args)
+    vim.wo.spell = spell_filetypes[vim.bo[args.buf].filetype] == true
   end,
 })
 
