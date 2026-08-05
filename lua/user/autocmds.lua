@@ -97,12 +97,11 @@ local spell_filetypes = {
 }
 
 -- Enable spell checking only for text files.
-vim.api.nvim_create_autocmd("FileType", {
+vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
   group = group,
   desc = "Configure spell checking for the file type",
-  pattern = "*",
-  callback = function(args)
-    vim.wo.spell = spell_filetypes[vim.bo[args.buf].filetype] == true
+  callback = function()
+    vim.wo.spell = spell_filetypes[vim.bo.filetype] == true
   end,
 })
 
