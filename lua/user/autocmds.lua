@@ -47,6 +47,20 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Use two-space indentation for filetypes without suitable defaults
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  desc = "Configure two-space indentation",
+  pattern = { "eelixir", "eex", "lua", "scheme", "vimdoc" },
+  callback = function(args)
+    local options = vim.bo[args.buf]
+    options.expandtab = true
+    options.shiftwidth = 2
+    options.softtabstop = 2
+    options.tabstop = 2
+  end,
+})
+
 local function configure_indentation(buf)
   local use_tabs = false
   local min_spaces
