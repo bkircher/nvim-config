@@ -1,14 +1,9 @@
-include = [
-  "README.md",
-  "AGENTS.md",
-]
-exclude = [
-]
+include = ["README.md", "AGENTS.md"]
+exclude = []
 
 [heading]
 sentence_case = true
-proper_nouns = [
-]
+proper_nouns = []
 
 [code_block.formatters]
 json = ["deno", "fmt", "--ext=jsonc", "-"]

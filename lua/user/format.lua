@@ -1,5 +1,6 @@
 -- Buffer formatter integration
 -- - Formats Markdown and MDX with Hongdown
+-- - Formats TOML with Taplo
 -- - Formats Deno-supported filetypes with `deno fmt`
 -- - Uses stdin/stdout so unsaved changes are included
 
@@ -120,7 +121,24 @@ local function hongdown_fmt(mode)
   apply_formatter(command, "Hongdown")
 end
 
+local function taplo_fmt()
+  local command = { "taplo", "format", "--colors", "never" }
+  local filename = vim.api.nvim_buf_get_name(0)
+
+  if filename ~= "" then
+    vim.list_extend(command, { "--stdin-filepath", filename })
+  end
+
+  table.insert(command, "-")
+  apply_formatter(command, "Taplo")
+end
+
 local function format_buffer()
+  if vim.bo.filetype == "toml" then
+    taplo_fmt()
+    return
+  end
+
   local mode = markdown_mode()
   if mode then
     hongdown_fmt(mode)
