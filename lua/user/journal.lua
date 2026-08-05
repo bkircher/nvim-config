@@ -1,7 +1,7 @@
 -- Journal entry helper
 --
 -- - Opens ~/journal/YYYY/MM/DD.md
--- - Appends "# h:mm AM/PM" and a blank line at EOF
+-- - Appends an underlined "h:mm AM/PM" heading and a blank line at EOF
 
 local function today_path()
   local root = vim.fn.expand("~/journal")
@@ -15,7 +15,7 @@ local function time_heading()
   local hour = tonumber(os.date("%I")) -- 1..12 without leading zero
   local min = os.date("%M")
   local ampm = string.upper(os.date("%p"))
-  return string.format("# %d:%s %s", hour, min, ampm)
+  return string.format("%d:%s %s", hour, min, ampm)
 end
 
 local function ensure_parent(path)
@@ -36,7 +36,9 @@ local function append_heading_at_eof(bufnr)
   if last ~= "" then
     table.insert(to_add, "")
   end
-  table.insert(to_add, time_heading())
+  local heading = time_heading()
+  table.insert(to_add, heading)
+  table.insert(to_add, string.rep("=", #heading))
   table.insert(to_add, "")
 
   -- If the buffer is a brand-new empty file (single empty line),
@@ -53,6 +55,13 @@ end
 local function journal_entry()
   local path = today_path()
   ensure_parent(path)
+
+  -- Neo-tree restores its buffer when :edit replaces it. Open the journal in
+  -- the previously active window instead.
+  if vim.bo.filetype == "neo-tree" then
+    vim.cmd.wincmd("p")
+  end
+
   vim.cmd.edit(vim.fn.fnameescape(path))
   append_heading_at_eof(0)
 end
