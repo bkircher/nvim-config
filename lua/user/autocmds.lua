@@ -47,6 +47,20 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+-- Use tabs with a width of two columns for web files
+vim.api.nvim_create_autocmd("FileType", {
+  group = group,
+  desc = "Configure web file indentation",
+  pattern = { "astro", "css", "html" },
+  callback = function(args)
+    local options = vim.bo[args.buf]
+    options.expandtab = false
+    options.shiftwidth = 2
+    options.softtabstop = 2
+    options.tabstop = 2
+  end,
+})
+
 -- Use two-space indentation for filetypes without suitable defaults
 vim.api.nvim_create_autocmd("FileType", {
   group = group,
