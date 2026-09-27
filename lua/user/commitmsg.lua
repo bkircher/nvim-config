@@ -80,7 +80,7 @@ local function generate_commit_msg()
     "pi",
     "--print",
     "--model",
-    "github-copilot/gpt-5.6-luna",
+    "openai-codex/gpt-6-luna",
     "--tools",
     "bash",
     "--no-session",
