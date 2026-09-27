@@ -97,6 +97,7 @@ Defaults and keymaps
 | Normal       | `Option-Right` (`<M-f>`) | Move to the next word                                           |
 | Normal       | `<leader>b`              | Toggle the file tree                                            |
 | Normal       | `<leader>cf`             | Format the current buffer                                       |
+| Normal       | `<leader>ct`             | Align the Markdown table at the cursor                          |
 | Normal       | `<leader>d`              | Open the current word in macOS Dictionary                       |
 | Normal       | `<leader>fb`             | List buffers                                                    |
 | Normal       | `<leader>ff`             | Find files                                                      |
@@ -107,6 +108,7 @@ Defaults and keymaps
 | Normal       | `<leader>l`              | Toggle whitespace indicators                                    |
 | Normal       | `<leader>ts`             | Toggle spelling                                                 |
 | Normal       | `<leader>w`              | Save the buffer if it changed                                   |
+| Visual       | `<leader>ct`             | Align the Markdown tables in the selection                      |
 | Insert       | `Option-Left` (`<M-b>`)  | Move to the previous word                                       |
 | Insert       | `Option-Right` (`<M-f>`) | Move to the next word                                           |
 | Command line | `<Up>`                   | Select the previous completion, or move through command history |
