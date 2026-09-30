@@ -1,15 +1,22 @@
 vim.g.everforest_background = "hard"
 vim.g.everforest_transparent_background = 1
-vim.o.background = "dark"
+vim.o.background = "light"
 
-local ok = pcall(vim.cmd.colorscheme, "everforest")
+local ok = pcall(function()
+  local onedark = require("onedark")
+  onedark.setup({
+    style = "light",
+    transparent = true,
+  })
+  onedark.load()
+end)
 
-if not ok then
-  -- Since 0.10, Neovim ships a new default colorscheme; keep it as a fallback
+if not ok and not pcall(vim.cmd.colorscheme, "everforest") then
+  -- Use Neovim's default colorscheme if neither plugin is available
   vim.cmd([[
     try
       colorscheme default
-      set background=dark
+      set background=light
     catch /^Vim\%((\a\+)\)\=:E185/
       colorscheme vim
       set background=light

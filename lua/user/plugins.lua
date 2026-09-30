@@ -1,5 +1,9 @@
 vim.pack.add({
   "https://github.com/sainnhe/everforest.git",
+  {
+    src = "https://github.com/navarasu/onedark.nvim",
+    version = "213c23ae45a04797572242568d5d51937181792d",
+  },
   "https://github.com/nvim-treesitter/nvim-treesitter.git",
   "https://github.com/nvim-lua/plenary.nvim.git",
   {
