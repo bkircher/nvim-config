@@ -345,6 +345,12 @@ cases("does not attach a stale buffer after a pending check", {
     end,
   },
   {
+    name = "unloaded buffer",
+    change = function(_, bufnr)
+      vim.api.nvim_buf_delete(bufnr, { unload = true, force = true })
+    end,
+  },
+  {
     name = "renamed buffer",
     change = function(_, bufnr)
       vim.api.nvim_buf_set_name(bufnr, "/other/main.ts")

@@ -37,6 +37,7 @@ local function root_dir(bufnr, on_dir)
     -- The buffer or enabled servers can change during the version check.
     if
       vim.api.nvim_buf_is_valid(bufnr)
+      and vim.api.nvim_buf_is_loaded(bufnr)
       and vim.api.nvim_buf_get_name(bufnr) == filename
       and vim.bo[bufnr].buftype == ""
       and vim.tbl_contains(filetypes, vim.bo[bufnr].filetype)
