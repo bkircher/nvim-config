@@ -178,7 +178,7 @@ Defaults and keymaps
 | Normal       | `<leader>b`              | Toggle the file tree                                            |
 | Normal       | `<leader>cf`             | Format the current buffer                                       |
 | Normal       | `<leader>ct`             | Align the Markdown table at the cursor                          |
-| Normal       | `<leader>d`              | Open the current word in macOS Dictionary                       |
+| Normal       | `<leader>d`              | List buffer diagnostics                                         |
 | Normal       | `<leader>fb`             | List buffers                                                    |
 | Normal       | `<leader>ff`             | Find files                                                      |
 | Normal       | `<leader>fg`             | Search text with live grep (requires `ripgrep`)                 |
@@ -186,6 +186,7 @@ Defaults and keymaps
 | Normal       | `<leader>h`              | Clear search highlighting                                       |
 | Normal       | `<leader>j`              | Create a journal entry                                          |
 | Normal       | `<leader>l`              | Toggle whitespace indicators                                    |
+| Normal       | `<leader>q`              | Open the current word in macOS Dictionary                        |
 | Normal       | `<leader>ts`             | Toggle spelling                                                 |
 | Normal       | `<leader>w`              | Save the buffer if it changed                                   |
 | Visual       | `<leader>ct`             | Align the Markdown tables in the selection                      |

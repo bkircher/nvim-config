@@ -39,8 +39,14 @@ map("n", "<leader>l", function()
   vim.notify("list: " .. (vim.wo.list and "on" or "off"))
 end, { desc = "Toggle whitespace indicators", silent = true })
 
--- macOS Dictionary lookup
+-- Buffer diagnostics
 map("n", "<leader>d", function()
+  vim.diagnostic.setloclist({ open = false })
+  vim.cmd.lopen()
+end, { desc = "List buffer diagnostics" })
+
+-- macOS Dictionary lookup
+map("n", "<leader>q", function()
   local word = vim.fn.expand("<cword>")
   vim.fn.system({ "open", "dict://" .. word })
 end, { desc = "Open word in macOS Dictionary" })
