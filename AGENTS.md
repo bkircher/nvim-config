@@ -18,5 +18,7 @@ This configuration requires Neovim 0.12.0+.
     window-local options such as `spell`.
  -  Do not execute remote or unpinned code.
  -  Match the existing style and avoid unnecessary refactors.
+ -  Verify after changing Lua files with
+    `nvim --clean -i NONE --headless -l tests/*`.
  -  After changing Lua files, run `stylua init.lua lua/` from the repository
     root.

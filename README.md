@@ -77,6 +77,86 @@ the parser starts and the relevant query is available, so file type indentation
 remains in use otherwise.
 
 
+Language servers
+----------------
+
+LSP setup uses Neovim's built-in client. The enabled server list and shared
+completion setup are in `lua/user/lsp.lua`. Each server has a module under
+`lua/user/lsp/` that returns a `vim.lsp.Config`.
+
+Servers must use workspace-local executables. Neovim does not install servers,
+run package scripts, or fall back to global installations. Different servers
+can run in the same workspace and attach to the same buffer. Neovim reuses
+clients by server name and workspace.
+
+### TypeScript
+
+The initial server is TypeScript's native `tsc` language server. It supports
+JavaScript, JSX, TypeScript, and TSX. Install and pin TypeScript 7 or later in
+the project's dependencies and lockfile.
+
+For each file, the workspace is:
+
+1.  The nearest parent with a `.git` file or directory.
+2.  Otherwise, Neovim's startup working directory, but only if it contains
+    the file.
+
+The server command is:
+
+~~~~
+<workspace>/node_modules/.bin/tsc --lsp --stdio
+~~~~
+
+The server runs with that workspace as its working directory. A monorepo uses
+one installation at its root, not separate installations in each package.
+Neither `package.json` nor `tsconfig.json` creates a separate LSP workspace.
+
+Only the root-local `tsc` is considered. There is no `tsgo`, TypeScript 6,
+parent-directory, or `$PATH` fallback. Missing executables are skipped without
+a warning. The local version check is asynchronous, has a two-second timeout,
+and is shared by buffers in the same workspace. Unsupported versions and failed
+checks produce one warning per workspace. Neovim reports server process errors.
+
+Version results and server failures are cached for the session. Restart
+Neovim after changing or repairing a server installation. Changing Neovim's
+working directory does not change the startup-directory fallback.
+
+The pnpm launcher is supported without special configuration. It can use
+Node.js from `$PATH`; the language server remains project-local. Project
+patches, such as `effect-tsgo patch`, remain the project's responsibility.
+Neovim uses the resulting local `tsc` and does not apply patches or configure
+Effect itself.
+
+### Built-in controls
+
+| Mode   | Mapping      | Action                 |
+| ------ | ------------ | ---------------------- |
+| Normal | `K`          | Show hover information |
+| Normal | `<C-]>`      | Go to a definition     |
+| Normal | `grr`        | Find references        |
+| Normal | `grn`        | Rename a symbol        |
+| Normal | `gra`        | Select a code action   |
+| Normal | `[d` / `]d`  | Go to a diagnostic     |
+| Insert | `<C-s>`      | Show signature help    |
+| Insert | `<C-x><C-o>` | Request completion     |
+| Insert | `<C-y>`      | Accept a completion    |
+
+Completion uses Neovim's built-in support, with no automatic popup. Diagnostics
+and navigation use the default behavior. Features depend on server support.
+The existing `:Format` and `<leader>cf` commands are unchanged; LSP does not add
+format-on-save.
+
+Use `:checkhealth vim.lsp` to inspect the setup and attached clients.
+
+### Adding another server
+
+Add a module such as `lua/user/lsp/example.lua` and add its name to the
+`servers` list in `lua/user/lsp.lua`. The module defines file types, a
+workspace-local command, root selection, and any server-specific checks.
+Use the Git-root/startup-directory policy unless the server needs another
+rule. Keep caches inside that module and separate them by workspace.
+
+
 Defaults and keymaps
 --------------------
 
@@ -149,13 +229,6 @@ $ nvim -n -u NONE -c "silent mkspell! ~/.config/spelling/en.utf-8.add" -c 'qa'
 
 Note: adding words with `zg` writes directly to `en.utf-8.add`, and Neovim uses
 them immediately.
-
-
-TODO
-----
-
- -  [ ] Add minimal built-in LSP startup that only activates when servers are
-    present (no plugins, no downloads).
 
 
 Links
