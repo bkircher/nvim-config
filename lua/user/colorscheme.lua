@@ -7,6 +7,10 @@ local ok = pcall(function()
   onedark.setup({
     style = "light",
     transparent = true,
+    highlights = {
+      Cursor = { fg = "$bg0", bg = "#e67e81", fmt = "none" },
+      lCursor = { fg = "$bg0", bg = "#e67e81", fmt = "none" },
+    },
   })
   onedark.load()
 end)
