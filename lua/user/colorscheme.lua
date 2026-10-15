@@ -1,37 +1,16 @@
-vim.g.everforest_background = "hard"
-vim.g.everforest_transparent_background = 1
-vim.o.background = "light"
+vim.g.everforest_background = "soft"
+vim.g.everforest_transparent_background = 0
+vim.o.background = "dark"
 
-local ok = pcall(function()
-  local onedark = require("onedark")
-  onedark.setup({
-    style = "light",
-    transparent = true,
-    highlights = {
-      Cursor = { fg = "$bg0", bg = "#e67e81", fmt = "none" },
-      lCursor = { fg = "$bg0", bg = "#e67e81", fmt = "none" },
-    },
-  })
-  onedark.load()
-end)
-
-if not ok and not pcall(vim.cmd.colorscheme, "everforest") then
-  -- Use Neovim's default colorscheme if neither plugin is available
+if not pcall(vim.cmd.colorscheme, "everforest") then
+  -- Use Neovim's default colorscheme if the plugin is unavailable
   vim.cmd([[
     try
       colorscheme default
-      set background=light
+      set background=dark
     catch /^Vim\%((\a\+)\)\=:E185/
       colorscheme vim
-      set background=light
+      set background=dark
     endtry
   ]])
 end
-
--- Make background transparent to work with any terminal theme
-vim.cmd([[
-  highlight Normal guibg=NONE ctermbg=NONE
-  highlight NonText guibg=NONE ctermbg=NONE
-  highlight SignColumn guibg=NONE ctermbg=NONE
-  highlight EndOfBuffer guibg=NONE ctermbg=NONE
-]])
