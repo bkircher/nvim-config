@@ -6,8 +6,15 @@
 -- Type `g<` to move into the output.
 
 if vim.fn.has("nvim-0.12") == 1 then
-  local ok, ui2 = pcall(require, "vim._core.ui2")
-  if ok then
-    ui2.enable({})
-  end
+  vim.api.nvim_create_autocmd("UIEnter", {
+    group = vim.api.nvim_create_augroup("user_newui", { clear = true }),
+    desc = "Enable the experimental UI after a UI attaches",
+    once = true,
+    callback = function()
+      local ok, ui2 = pcall(require, "vim._core.ui2")
+      if ok then
+        ui2.enable({})
+      end
+    end,
+  })
 end
