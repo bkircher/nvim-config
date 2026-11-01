@@ -1,24 +1,9 @@
 -- Buffer formatter integration
 -- - Formats Markdown and MDX with Hongdown
--- - Formats TOML with Taplo
--- - Formats Deno-supported filetypes with `deno fmt`
+-- - Formats TOML with Taplo and Lua with StyLua
+-- - Formats all other files with dprint (with project configuration first and
+--   global configuration as the fallback)
 -- - Uses stdin/stdout so unsaved changes are included
-
-local extension_aliases = {
-  cjs = "cjs",
-  cts = "cts",
-  ipynb = "ipynb",
-  js = "js",
-  jsx = "jsx",
-  markdown = "md",
-  md = "md",
-  mjs = "mjs",
-  mts = "mts",
-  json = "json",
-  jsonc = "jsonc",
-  ts = "ts",
-  tsx = "tsx",
-}
 
 local formatter_timeout_ms = 5000
 
@@ -27,14 +12,7 @@ local filetype_extensions = {
   javascriptreact = "jsx",
   typescript = "ts",
   typescriptreact = "tsx",
-  json = "json",
-  jsonc = "jsonc",
-  markdown = "md",
 }
-
-local function canonicalize_ext(ext)
-  return extension_aliases[ext:lower()]
-end
 
 local function buffer_ext()
   local name = vim.api.nvim_buf_get_name(0)
@@ -43,11 +21,6 @@ local function buffer_ext()
   end
 
   return vim.fn.fnamemodify(name, ":e"):lower()
-end
-
-local function detect_deno_ext()
-  -- Prefer a supported file extension; fallback to the filetype mapping.
-  return canonicalize_ext(buffer_ext()) or filetype_extensions[vim.bo.filetype]
 end
 
 local function markdown_mode()
@@ -73,7 +46,10 @@ local function apply_formatter(command, name)
   local buf = 0
   local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
   local input = table.concat(lines, "\n")
-  local res = vim.system(command, { stdin = input }):wait(formatter_timeout_ms)
+  local filename = vim.api.nvim_buf_get_name(buf)
+  local cwd = filename ~= "" and vim.fs.dirname(filename) or vim.fn.getcwd()
+  local res =
+    vim.system(command, { stdin = input, cwd = cwd }):wait(formatter_timeout_ms)
   local output = res.stdout or ""
   local code = res.code or 1
 
@@ -103,14 +79,21 @@ local function apply_formatter(command, name)
   vim.fn.winrestview(view)
 end
 
-local function deno_fmt()
-  local ext = detect_deno_ext()
-  if not ext then
-    vim.notify("Deno fmt: unsupported filetype", vim.log.levels.INFO)
+local function dprint_fmt()
+  local filename = vim.api.nvim_buf_get_name(0)
+  if filename == "" then
+    filename = filetype_extensions[vim.bo.filetype] or vim.bo.filetype
+  end
+  if filename == "" then
+    vim.notify(
+      "dprint: set a file name or filetype before formatting",
+      vim.log.levels.INFO
+    )
     return
   end
 
-  apply_formatter({ "deno", "fmt", ("--ext=%s"):format(ext), "-" }, "Deno fmt")
+  -- Let dprint find project configuration before using global configuration.
+  apply_formatter({ "dprint", "fmt", "--stdin", filename }, "dprint")
 end
 
 local function hongdown_fmt(mode)
@@ -133,8 +116,21 @@ local function taplo_fmt()
   apply_formatter(command, "Taplo")
 end
 
+local function stylua_fmt()
+  local command = { "stylua", "--search-parent-directories" }
+  local filename = vim.api.nvim_buf_get_name(0)
+
+  if filename ~= "" then
+    vim.list_extend(command, { "--stdin-filepath", filename })
+  end
+
+  table.insert(command, "-")
+  apply_formatter(command, "StyLua")
+end
+
 local function format_buffer()
-  if vim.bo.filetype == "toml" then
+  local ext = buffer_ext()
+  if ext == "toml" or vim.bo.filetype == "toml" then
     taplo_fmt()
     return
   end
@@ -145,18 +141,18 @@ local function format_buffer()
     return
   end
 
-  deno_fmt()
+  if ext == "lua" or vim.bo.filetype == "lua" then
+    stylua_fmt()
+    return
+  end
+
+  dprint_fmt()
 end
 
 vim.api.nvim_create_user_command(
   "Format",
   format_buffer,
   { desc = "Format current buffer" }
-)
-vim.api.nvim_create_user_command(
-  "DenoFmt",
-  deno_fmt,
-  { desc = "Format current buffer with deno fmt" }
 )
 
 vim.keymap.set("n", "<leader>cf", format_buffer, {

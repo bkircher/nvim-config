@@ -157,6 +157,28 @@ Use the Git-root/startup-directory policy unless the server needs another
 rule. Keep caches inside that module and separate them by workspace.
 
 
+Formatting
+----------
+
+Use `:Format` or `<leader>cf` to format the current buffer. The formatters must
+be available in `$PATH`.
+
+| Files                         | Formatter                           |
+| ----------------------------- | ----------------------------------- |
+| Markdown (`.md`, `.markdown`) | Hongdown                            |
+| MDX                           | Hongdown with `--mdx`               |
+| TOML                          | Taplo                               |
+| Lua                           | StyLua                              |
+| All other files               | dprint, with the configured plugins |
+
+Formatting includes unsaved changes and does not save the buffer. Each
+formatter runs from the file's directory. Unnamed buffers use Neovim's current
+directory, with the file type used to select the formatter.
+
+dprint uses its built-in configuration search: project configuration first,
+then global configuration only when no project configuration exists.
+
+
 Defaults and keymaps
 --------------------
 
@@ -186,7 +208,7 @@ Defaults and keymaps
 | Normal       | `<leader>h`              | Clear search highlighting                                       |
 | Normal       | `<leader>j`              | Create a journal entry                                          |
 | Normal       | `<leader>l`              | Toggle whitespace indicators                                    |
-| Normal       | `<leader>q`              | Open the current word in macOS Dictionary                        |
+| Normal       | `<leader>q`              | Open the current word in macOS Dictionary                       |
 | Normal       | `<leader>ts`             | Toggle spelling                                                 |
 | Normal       | `<leader>w`              | Save the buffer if it changed                                   |
 | Visual       | `<leader>ct`             | Align the Markdown tables in the selection                      |
