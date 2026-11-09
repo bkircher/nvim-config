@@ -150,6 +150,12 @@ local treesitter_filetypes = {
   "heex",
   "eex",
   "eelixir",
+  "bash",
+  "sh",
+  "zsh",
+  "typescript",
+  "rust",
+  "typescriptreact",
 }
 
 local treesitter_filetype = {}
