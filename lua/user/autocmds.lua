@@ -156,6 +156,7 @@ local treesitter_filetypes = {
   "typescript",
   "rust",
   "typescriptreact",
+  "gleam",
 }
 
 local treesitter_filetype = {}
