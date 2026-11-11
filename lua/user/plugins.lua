@@ -13,6 +13,10 @@ vim.pack.add({
   "https://github.com/MunifTanjim/nui.nvim",
   "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/nvim-telescope/telescope.nvim.git",
+  {
+    src = "https://github.com/lewis6991/gitsigns.nvim",
+    version = "a462f416e2ce4744531c6256252dee99a7d34a83",
+  },
 })
 
 -- Built-in optional plugins
